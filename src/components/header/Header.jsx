@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <nav className="w-11/12 mx-auto flex items-center justify-between flex-wrap bg-transparent py-8">
+    <nav className="w-11/12 mx-auto flex items-center justify-between flex-wrap bg-transparent py-7">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <h1 className="font-semibold text-2xl tracking-tight">GAME ON</h1>
       </div>

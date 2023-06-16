@@ -6,7 +6,7 @@ import NavBar from "src/components/navbar/NavBar";
 
 export default function Root() {
   return (
-    <Fragment className="flex w-4/5 mx-auto">
+    <Fragment>
       <Header />
       <NavBar />
       <Outlet />
