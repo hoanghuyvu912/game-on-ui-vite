@@ -36,7 +36,17 @@ export default function Game() {
     fetchGameDetails();
   }, [fetchGameDetails]);
 
-  console.log(gameDetails);
+  const renderGameComment = gameDetails?.simplifiedCommentDtoList.map(
+    (comment, index) => {
+      return (
+        <li key={comment.id} className="my-5  leading-10">
+          <p className="font-bold text-lg italic">{comment.username}</p>
+          <p>{comment.commentDate}</p>
+          <p>{comment.commentContent}</p>
+        </li>
+      );
+    }
+  );
 
   return (
     <section className="my-6">
@@ -55,9 +65,16 @@ export default function Game() {
           </p>
           <p className="font-bold">{gameDetails?.description}</p>
           <p>
+            System requirement: <br />
+            <p className="font-bold">{gameDetails.systemReq}</p>
+          </p>
+          <p>
             Price: <span className="font-bold">${gameDetails?.price}</span>
           </p>
         </div>
+      </div>
+      <div className="mt-8">
+        <ul>{renderGameComment}</ul>
       </div>
     </section>
   );
