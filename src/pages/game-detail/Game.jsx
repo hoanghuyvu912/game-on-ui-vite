@@ -36,10 +36,12 @@ export default function Game() {
     fetchGameDetails();
   }, [fetchGameDetails]);
 
+  console.log(gameDetails);
+
   const renderGameComment = gameDetails?.simplifiedCommentDtoList.map(
     (comment, index) => {
       return (
-        <li key={comment.id} className="my-5  leading-10">
+        <li key={comment.id} className="my-5">
           <p className="font-bold text-lg italic">{comment.username}</p>
           <p>{comment.commentDate}</p>
           <p>{comment.commentContent}</p>
@@ -47,6 +49,10 @@ export default function Game() {
       );
     }
   );
+
+  const renderGameSystemReq = gameDetails?.systemReq.split("\n").map((str) => {
+    return <p className="leading-none">{str}</p>;
+  });
 
   return (
     <section className="my-6">
@@ -64,10 +70,8 @@ export default function Game() {
             Released date: <span>{gameDetails?.releasedDate}</span>
           </p>
           <p className="font-bold">{gameDetails?.description}</p>
-          <p>
-            System requirement: <br />
-            <p className="font-bold">{gameDetails.systemReq}</p>
-          </p>
+          <p className="font-bold underline">System requirement:</p>
+          {renderGameSystemReq}
           <p>
             Price: <span className="font-bold">${gameDetails?.price}</span>
           </p>

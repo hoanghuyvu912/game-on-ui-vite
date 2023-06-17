@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <nav className="mx-auto flex items-center justify-between flex-wrap bg-transparent py-7">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -40,18 +47,19 @@ export default function Header() {
           </a>
         </div> */}
         <div>
-          <a
-            href="#"
-            className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 duration-500 mr-3"
+          <div
+            className="inline-block cursor-pointer text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 duration-500 mr-3"
           >
             Sign in
-          </a>
-          <a
-            href="#"
-            className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 duration-500"
+          </div>
+          <div
+            onClick={() => {
+              navigate("/sign-up")
+            }}
+            className="inline-block cursor-pointer text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 duration-500"
           >
             Sign up
-          </a>
+          </div>
         </div>
       </div>
     </nav>

@@ -5,6 +5,7 @@ import Home from "./pages/homepage/Home";
 import GameStore from "./pages/game-store/GameStore";
 import GameLibrary from "./pages/game-library/GameLibrary";
 import Game from "./pages/game-detail/Game";
+import SignUp from "./pages/sign-up/SignUp";
 
 function App() {
   const router = createBrowserRouter([
@@ -17,6 +18,10 @@ function App() {
         { path: "/library", element: <GameLibrary /> },
         { path: "/game/:gameId", element: <Game /> },
       ],
+    },
+    {
+      path: "/sign-up",
+      element: <SignUp />,
     },
   ]);
 
