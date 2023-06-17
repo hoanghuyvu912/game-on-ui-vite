@@ -1,8 +1,17 @@
+"use client";
+
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Carousel } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [featuredGames, setFeaturedGames] = useState([]);
+
+  const navigate = useNavigate();
+
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
 
   const fetchFeaturedGamesListHandler = useCallback(async () => {
     try {
@@ -30,20 +39,23 @@ export default function Home() {
     fetchFeaturedGamesListHandler();
   }, [fetchFeaturedGamesListHandler]);
 
-  const renderFeaturedGamesCarousel = featuredGames.map((game) => {
+  const renderFeaturedGamesCarousel = featuredGames.map((game, index) => {
     return (
       <img
         key={game.id}
         alt="..."
         src={game.thumbnail}
-        className="object-contain w-2/3 mx-auto 2xl:rounded-3xl sm:h-full"
+        className="object-contain w-2/3 mx-auto rounded-[24px] sm:h-full"
+        onClick={() => handleNavigate(`/game/${game.id}`)}
       />
     );
   });
 
   return (
-    <div className="w-11/12 mx-auto my-6 h-64 xl:h-96">
-      <Carousel className="h-full">{renderFeaturedGamesCarousel}</Carousel>
+    <div className="mx-auto my-6 h-64 xl:h-96">
+      <Carousel slide className="h-full">
+        {renderFeaturedGamesCarousel}
+      </Carousel>
     </div>
   );
 }
