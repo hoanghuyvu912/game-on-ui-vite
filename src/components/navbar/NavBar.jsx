@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar(props) {
   const [active, setActive] = useState(null);
+
+  // setActive(props.id);
 
   const navigate = useNavigate();
 
@@ -12,16 +14,12 @@ export default function NavBar() {
     { id: 4, name: "Library", path: "/library" },
   ];
 
-  const handleNavigate = (path) => {
-    navigate(path);
-  };
-
   const renderNavItem = navItemArr.map((e) => {
     return (
       <div
         key={e.id}
         onClick={() => {
-          handleNavigate(e.path);
+          navigate(e.path);
           setActive(e.id);
         }}
         style={{

@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import useInput from "src/hook/use-input";
-import { Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import classes from "./SignUp.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.includes("@");
 
 export default function SignUp() {
   const navigate = useNavigate();
+
+  const [genderInput, setGenderInput] = useState("Male");
+
+  const handleGenderChange = (event) => {
+    setGenderInput(event.target.value);
+  };
+
+  const [addressInput, setAddressInput] = useState("");
+
+  const handleAddressChange = (event) => {
+    setAddressInput(event.target.value);
+  };
 
   const {
     value: firstNameValue,
@@ -55,15 +67,6 @@ export default function SignUp() {
   } = useInput(isNotEmpty);
 
   const {
-    value: addressValue,
-    isValid: addressIsValid,
-    hasError: addressHasError,
-    valueChangeHandler: addressChangeHandler,
-    inputBlurHandler: addressBlurHandler,
-    reset: resetAddress,
-  } = useInput(isNotEmpty);
-
-  const {
     value: emailValue,
     isValid: emailIsValid,
     hasError: emailHasError,
@@ -81,15 +84,6 @@ export default function SignUp() {
     reset: resetDob,
   } = useInput(isNotEmpty);
 
-  const {
-    value: genderValue,
-    isValid: genderIsValid,
-    hasError: genderHasError,
-    valueChangeHandler: genderChangeHandler,
-    inputBlurHandler: genderBlurHandler,
-    reset: resetGender,
-  } = useInput(isNotEmpty);
-
   let formIsValid = false;
 
   if (
@@ -104,33 +98,55 @@ export default function SignUp() {
     formIsValid = true;
   }
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     if (!formIsValid) {
       return;
     }
 
-    console.log("Submitted!");
-    console.log(
-      firstNameValue,
-      lastNameValue,
-      emailValue,
-      usernameValue,
-      passwordValue,
-      telValue,
-      addressValue,
-      dobValue,
-      genderValue
-    );
+    const submitSignUpData = {
+      firstName: firstNameValue,
+      lastName: lastNameValue,
+      email: emailValue,
+      username: usernameValue,
+      password: passwordValue,
+      tel: telValue,
+      address: addressInput,
+      dob: dobValue,
+      gender: genderInput,
+    };
 
-    resetFirstName();
-    resetLastName();
-    resetEmail();
-    resetUsername();
-    resetPassword();
-    resetDob();
-    resetGender();
+    console.log(submitSignUpData);
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(submitSignUpData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(JSON.stringify(submitSignUpData));
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      console.log("Submitted!");
+
+      resetFirstName();
+      resetLastName();
+      resetUsername();
+      resetPassword();
+      resetTel();
+      setAddressInput("");
+      resetEmail();
+      resetDob();
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const firstNameClasses = firstNameHasError
@@ -142,9 +158,11 @@ export default function SignUp() {
   const emailClasses = emailHasError ? "form-control invalid" : "form-control";
 
   return (
-    <div className="w-1/2 m-auto h-auto my-12 bg-teal-500 rounded-3xl">
-      <div className="flex items-center justify-center w-full py-5 bg-white rounded-t-3xl text-center">
-        <h1 className="font-bold text-5xl text-teal-700">Ready to Game?</h1>
+    <div className="sm:w-3/4 md:w-4/5 lg:w-3/5 2xl:w-2/5 m-auto h-auto my-12 bg-transparent border-white border-4 rounded-2xl overflow-hidden">
+      <div
+        className={`flex items-center bg-white text-blue-700 justify-center py-5 text-center}`}
+      >
+        <h1 className={`font-bold text-5xl`}>Ready to Game?</h1>
       </div>
       <div className="w-3/4 mx-auto py-3 leading-8">
         <form onSubmit={submitHandler}>
@@ -157,10 +175,12 @@ export default function SignUp() {
                 value={firstNameValue}
                 onChange={firstNameChangeHandler}
                 onBlur={firstNameBlurHandler}
-                className="pl-3"
+                className="pl-3 text-black"
               />
               {firstNameHasError && (
-                <p className="error-text">Please enter a first name.</p>
+                <p className="text-red-500 font-bold">
+                  Please enter a first name.
+                </p>
               )}
             </div>
 
@@ -172,7 +192,7 @@ export default function SignUp() {
                 value={lastNameValue}
                 onChange={lastNameChangeHandler}
                 onBlur={lastNameBlurHandler}
-                className="pl-3"
+                className="pl-3 text-black"
               />
               {lastNameHasError && (
                 <p className="error-text">Please enter a last name.</p>
@@ -187,7 +207,7 @@ export default function SignUp() {
                 value={usernameValue}
                 onChange={usernameChangeHandler}
                 onBlur={usernameBlurHandler}
-                className="pl-3"
+                className="pl-3 text-black"
               />
               {usernameHasError && (
                 <p className="error-text">Please enter a username.</p>
@@ -202,7 +222,7 @@ export default function SignUp() {
                 value={passwordValue}
                 onChange={passwordChangeHandler}
                 onBlur={passwordBlurHandler}
-                className="pl-3"
+                className="pl-3 text-black"
               />
               {passwordHasError && (
                 <p className="error-text">Please enter a password.</p>
@@ -217,7 +237,7 @@ export default function SignUp() {
                 value={telValue}
                 onChange={telChangeHandler}
                 onBlur={telBlurHandler}
-                className="pl-3"
+                className="pl-3 text-black"
               />
               {telHasError && (
                 <p className="error-text">
@@ -231,16 +251,10 @@ export default function SignUp() {
               <input
                 type="text"
                 id="address"
-                value={addressValue}
-                onChange={addressChangeHandler}
-                onBlur={addressBlurHandler}
-                className="pl-3"
+                value={addressInput}
+                onChange={handleAddressChange}
+                className="pl-3 text-black"
               />
-              {addressHasError && (
-                <p className="error-text">
-                  Please enter a valid address.
-                </p>
-              )}
             </div>
 
             <div className={emailClasses}>
@@ -251,7 +265,7 @@ export default function SignUp() {
                 value={emailValue}
                 onChange={emailChangeHandler}
                 onBlur={emailBlurHandler}
-                className="pl-3"
+                className="pl-3 text-black"
               />
               {emailHasError && (
                 <p className="error-text">
@@ -271,17 +285,18 @@ export default function SignUp() {
                 value={dobValue}
                 onChange={dobChangeHandler}
                 onBlur={dobBlurHandler}
+                className="pl-3 text-black"
               />
             </div>
 
-            <label htmlFor="gender">Gender</label>
             <div>
+              <label htmlFor="gender">Gender</label>
               <select
                 name=""
                 id="gender"
-                value={genderValue}
-                onChange={genderChangeHandler}
-                onBlur={genderBlurHandler}
+                value={genderInput}
+                onChange={handleGenderChange}
+                className="pl-3 py-1 text-black block"
               >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -289,9 +304,9 @@ export default function SignUp() {
             </div>
           </div>
 
-          <div className="form-actions">
+          <div className="form-actions my-2">
             <button
-              className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 duration-500 cursor-pointer"
+              className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 duration-500 cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-300 disabled:hover:bg-gray-400 disabled:hover:border-white"
               disabled={!formIsValid}
             >
               Sign up

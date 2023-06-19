@@ -8,7 +8,6 @@ export default function Root() {
   return (
     <Fragment>
       <Header />
-      <NavBar />
       <Outlet />
       <Footer />
     </Fragment>

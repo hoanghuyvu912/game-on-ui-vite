@@ -6,6 +6,7 @@ import GameStore from "./pages/game-store/GameStore";
 import GameLibrary from "./pages/game-library/GameLibrary";
 import Game from "./pages/game-detail/Game";
 import SignUp from "./pages/sign-up/SignUp";
+import SignIn from "./pages/sign-in/SignIn";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +23,10 @@ function App() {
     {
       path: "/sign-up",
       element: <SignUp />,
+    },
+    {
+      path: "/sign-in",
+      element: <SignIn   />,
     },
   ]);
 

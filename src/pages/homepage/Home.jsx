@@ -45,15 +45,15 @@ export default function Home() {
         key={game.id}
         alt="..."
         src={game.thumbnail}
-        className="object-contain w-2/3 mx-auto rounded-[24px] sm:h-full"
+        className="w-full mx-auto rounded-[24px] sm:h-full"
         onClick={() => handleNavigate(`/game/${game.id}`)}
       />
     );
   });
 
   return (
-    <div className="mx-auto my-6 h-64 xl:h-96">
-      <Carousel slide className="h-full">
+    <div className="mx-auto my-6 h-64 xl:h-[500px] w-2/3">
+      <Carousel>
         {renderFeaturedGamesCarousel}
       </Carousel>
     </div>
