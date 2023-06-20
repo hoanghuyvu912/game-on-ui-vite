@@ -9,10 +9,6 @@ export default function Home() {
 
   const navigate = useNavigate();
 
-  const handleNavigate = (path) => {
-    navigate(path);
-  };
-
   const fetchFeaturedGamesListHandler = useCallback(async () => {
     try {
       const response = await fetch("http://localhost:8080/api/games/featured");
@@ -45,17 +41,15 @@ export default function Home() {
         key={game.id}
         alt="..."
         src={game.thumbnail}
-        className="w-full mx-auto rounded-3xl sm:h-full"
-        onClick={() => handleNavigate(`/game/${game.id}`)}
+        className="w-full mx-auto rounded-3xl h-full object-cover"
+        onClick={() => navigate(`/game/${game.id}`)}
       />
     );
   });
 
   return (
-    <div className="mx-auto my-6 h-64 xl:h-[500px] w-2/3">
-      <Carousel>
-        {renderFeaturedGamesCarousel}
-      </Carousel>
+    <div className="mx-auto my-6 h-72 xl:h-[600px] w-2/3">
+      <Carousel>{renderFeaturedGamesCarousel}</Carousel>
     </div>
   );
 }

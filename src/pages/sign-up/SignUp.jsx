@@ -127,8 +127,6 @@ export default function SignUp() {
           "Content-Type": "application/json",
         },
       });
-      console.log(JSON.stringify(submitSignUpData));
-      console.log(response);
 
       if (!response.ok) {
         throw new Error("Something went wrong");

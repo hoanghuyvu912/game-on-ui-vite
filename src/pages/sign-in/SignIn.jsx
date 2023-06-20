@@ -4,40 +4,9 @@ import { useNavigate } from "react-router-dom";
 import classes from "./SignIn.module.css";
 
 const isNotEmpty = (value) => value.trim() !== "";
-const isEmail = (value) => value.includes("@");
 
 export default function SignIn() {
   const navigate = useNavigate();
-
-  const [genderInput, setGenderInput] = useState("Male");
-
-  const handleGenderChange = (event) => {
-    setGenderInput(event.target.value);
-  };
-
-  const [addressInput, setAddressInput] = useState("");
-
-  const handleAddressChange = (event) => {
-    setAddressInput(event.target.value);
-  };
-
-  const {
-    value: firstNameValue,
-    isValid: firstNameIsValid,
-    hasError: firstNameHasError,
-    valueChangeHandler: firstNameChangeHandler,
-    inputBlurHandler: firstNameBlurHandler,
-    reset: resetFirstName,
-  } = useInput(isNotEmpty);
-
-  const {
-    value: lastNameValue,
-    isValid: lastNameIsValid,
-    hasError: lastNameHasError,
-    valueChangeHandler: lastNameChangeHandler,
-    inputBlurHandler: lastNameBlurHandler,
-    reset: resetLastName,
-  } = useInput(isNotEmpty);
 
   const {
     value: usernameValue,
@@ -57,44 +26,9 @@ export default function SignIn() {
     reset: resetPassword,
   } = useInput(isNotEmpty);
 
-  const {
-    value: telValue,
-    isValid: telIsValid,
-    hasError: telHasError,
-    valueChangeHandler: telChangeHandler,
-    inputBlurHandler: telBlurHandler,
-    reset: resetTel,
-  } = useInput(isNotEmpty);
-
-  const {
-    value: emailValue,
-    isValid: emailIsValid,
-    hasError: emailHasError,
-    valueChangeHandler: emailChangeHandler,
-    inputBlurHandler: emailBlurHandler,
-    reset: resetEmail,
-  } = useInput(isEmail);
-
-  const {
-    value: dobValue,
-    isValid: dobIsValid,
-    hasError: dobHasError,
-    valueChangeHandler: dobChangeHandler,
-    inputBlurHandler: dobBlurHandler,
-    reset: resetDob,
-  } = useInput(isNotEmpty);
-
   let formIsValid = false;
 
-  if (
-    firstNameIsValid &&
-    lastNameIsValid &&
-    emailIsValid &&
-    usernameIsValid &&
-    passwordIsValid &&
-    dobIsValid
-    // genderIsValid
-  ) {
+  if (usernameIsValid && passwordIsValid) {
     formIsValid = true;
   }
 
@@ -105,57 +39,32 @@ export default function SignIn() {
       return;
     }
 
-    const submitSignUpData = {
-      firstName: firstNameValue,
-      lastName: lastNameValue,
-      email: emailValue,
+    const submitSignInData = {
       username: usernameValue,
       password: passwordValue,
-      tel: telValue,
-      address: addressInput,
-      dob: dobValue,
-      gender: genderInput,
     };
 
-    console.log(submitSignUpData);
-
     try {
-      const response = await fetch("http://localhost:8080/api/auth/signup", {
+      const response = await fetch("http://localhost:8080/api/auth/signin", {
         method: "POST",
-        body: JSON.stringify(submitSignUpData),
+        body: JSON.stringify(submitSignInData),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log(JSON.stringify(submitSignUpData));
-      console.log(response);
-
       if (!response.ok) {
         throw new Error("Something went wrong");
       }
 
-      console.log("Submitted!");
+      const userInfo = await response.json();
+      console.log(userInfo);
 
-      resetFirstName();
-      resetLastName();
       resetUsername();
       resetPassword();
-      resetTel();
-      setAddressInput("");
-      resetEmail();
-      resetDob();
     } catch (error) {
       alert(error.message);
     }
   };
-
-  const firstNameClasses = firstNameHasError
-    ? "form-control invalid"
-    : "form-control";
-  const lastNameClasses = lastNameHasError
-    ? "form-control invalid"
-    : "form-control";
-  const emailClasses = emailHasError ? "form-control invalid" : "form-control";
 
   return (
     <div className="sm:w-3/4 md:w-4/5 lg:w-3/5 2xl:w-2/5 m-auto h-auto my-12 bg-transparent border-white border-4 rounded-2xl overflow-hidden">
@@ -169,7 +78,7 @@ export default function SignIn() {
       <div className="w-3/4 mx-auto py-3 leading-8">
         <form onSubmit={submitHandler}>
           <div className="control-group">
-            <div className={lastNameClasses}>
+            <div className="form-control">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
@@ -184,7 +93,7 @@ export default function SignIn() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="form-control">
               <label htmlFor="password">Password</label>
               <input
                 type="password"

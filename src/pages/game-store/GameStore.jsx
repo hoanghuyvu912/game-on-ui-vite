@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import classes from "./GameStore.module.css";
 
 export default function GameStore() {
-  const [allGamesList, setAllGamesList] = useState();
+  const [allGamesList, setAllGamesList] = useState([]);
 
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export default function GameStore() {
 
   console.log(allGamesList);
 
-  const renderAllGamesCard = allGamesList?.map((game) => {
+  const renderAllGamesCard = allGamesList.map((game) => {
     return (
       <div
         onClick={() => {
@@ -35,7 +35,7 @@ export default function GameStore() {
         <img
           src={game.thumbnail}
           alt=""
-          className="object-fill w-full h-4/5 justify-center"
+          className="object-cover w-full h-4/5 justify-center"
         />
         <div className="p-4">
           <h1 className="font-bold">{game.name}</h1>
