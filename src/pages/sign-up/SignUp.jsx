@@ -160,9 +160,11 @@ export default function SignUp() {
   return (
     <div className="sm:w-3/4 md:w-4/5 lg:w-3/5 2xl:w-2/5 m-auto h-auto my-12 bg-transparent border-white border-4 rounded-2xl overflow-hidden">
       <div
-        className={`flex items-center bg-white text-blue-700 justify-center py-5 text-center}`}
+        className={`flex items-center bg-white text-white justify-center py-5 text-center}`}
       >
-        <h1 className={`font-bold text-5xl`}>Ready to Game?</h1>
+        <h1 className={`font-bold text-5xl ${classes["sign-up-text"]}`}>
+          Ready to Game?
+        </h1>
       </div>
       <div className="w-3/4 mx-auto py-3 leading-8">
         <form onSubmit={submitHandler}>
@@ -318,7 +320,7 @@ export default function SignUp() {
           <span
             className="cursor-pointer hover:text-teal-700 transition-all duration-300 font-bold"
             onClick={() => {
-              navigate("/signin");
+              navigate("/sign-in");
             }}
           >
             Sign in!

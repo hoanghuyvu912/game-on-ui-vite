@@ -26,7 +26,7 @@ function App() {
     },
     {
       path: "/sign-in",
-      element: <SignIn   />,
+      element: <SignIn />,
     },
   ]);
 

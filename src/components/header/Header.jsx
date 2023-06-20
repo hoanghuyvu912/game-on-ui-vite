@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Header.module.css";
-import NavBar from "../navbar/NavBar";
 
 export default function Header() {
   const navigate = useNavigate();

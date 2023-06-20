@@ -45,7 +45,7 @@ export default function Home() {
         key={game.id}
         alt="..."
         src={game.thumbnail}
-        className="w-full mx-auto rounded-[24px] sm:h-full"
+        className="w-full mx-auto rounded-3xl sm:h-full"
         onClick={() => handleNavigate(`/game/${game.id}`)}
       />
     );

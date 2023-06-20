@@ -1,9 +1,9 @@
 .sign-up-text {
   color: transparent;
   background-clip: text;
+  -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
 
   background: url("../../assets/images/wallpaperflare.com_wallpaper.jpg");
-  background-size: 120%;
+  background-size: 200%;
 }

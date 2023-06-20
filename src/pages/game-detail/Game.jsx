@@ -19,20 +19,6 @@ export default function Game() {
     } catch (error) {}
   }, []);
 
-
-  //   const fetchSpecificGameComments = useCallback(async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `http://localhost:8080/api/comments/by-game-id/${gameDetails?.id}`
-  //       );
-  //       if (!response.ok) {
-  //         throw new Error("Something went wrong!");
-  //       }
-  //       const data = await response.json();
-  //       setGameComments(data);
-  //     } catch (error) {}
-  //   }, []);
-
   useEffect(() => {
     fetchGameDetails();
   }, [fetchGameDetails]);
@@ -57,12 +43,12 @@ export default function Game() {
 
   return (
     <section className="my-6">
-      <div className="grid grid-cols-2 gap-24 items-center justify-between flex-wrap">
-        <div className="h-[500px]">
+      <div className="grid grid-cols-2 gap-24 justify-between flex-wrap">
+        <div className="h-[450px]">
           <img
             src={gameDetails?.thumbnail}
             alt=""
-            className="object-fit h-full w-full rounded-3xl"
+            className="object-fill h-full w-full rounded-3xl"
           />
         </div>
         <div className="h-[500px] leading-10">
