@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useInput from "src/hook/use-input";
 import { useNavigate } from "react-router-dom";
 import classes from "./SignIn.module.css";
+import { USER_INFO_KEY } from "src/constants/common";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
@@ -57,7 +58,13 @@ export default function SignIn() {
       }
 
       const userInfo = await response.json();
-      console.log(userInfo);
+      console.log(userInfo.token);
+
+      // const decoded = jwt.verify(userInfo.token, config.get("jwtPrivateKey"));
+      // var userId = decoded.id;
+      // console.log(userId);
+
+      localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
 
       resetUsername();
       resetPassword();
