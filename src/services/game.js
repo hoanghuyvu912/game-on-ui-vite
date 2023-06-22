@@ -13,3 +13,10 @@ export const fetchGameDetailsApi = (id) => {
     method: "GET",
   });
 };
+
+export const fetchGameLibraryApi = () => {
+  return request({
+    url: `/games/library`,
+    method: "GET",
+  });
+}
