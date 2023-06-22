@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function NavBar(props) {
   const [active, setActive] = useState(null);
 
-  // setActive(props.id);
-
   const navigate = useNavigate();
+
+  const cartQuantity = useSelector((state) => state.cart.totalQuantity);
 
   const navItemArr = [
     { id: 1, name: "Home", path: "/" },
@@ -49,7 +50,6 @@ export default function NavBar(props) {
         </button>
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        {/* <div className="text-sm lg:flex-grow">{renderNavItem}</div> */}
         {renderNavItem}
       </div>
       <div className="bg-red-500 w-96 h-96">Cart</div>

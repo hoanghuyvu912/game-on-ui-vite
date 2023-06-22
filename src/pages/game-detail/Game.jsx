@@ -1,7 +1,11 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { cartActions } from "src/store/cart-slice";
 
 export default function Game() {
+  const dispatch = useDispatch();
+
   const [gameDetails, setGameDetails] = useState();
 
   const params = useParams();
@@ -37,9 +41,15 @@ export default function Game() {
     }
   );
 
-  const renderGameSystemReq = gameDetails?.systemReq.split("\n").map((str) => {
-    return <p className="leading-none">{str}</p>;
-  });
+  const renderGameSystemReq = gameDetails?.systemReq
+    .split("\n")
+    .map((str, index) => {
+      return (
+        <p key={index} className="leading-none">
+          {str}
+        </p>
+      );
+    });
 
   return (
     <section className="my-6">
@@ -62,6 +72,21 @@ export default function Game() {
           <p>
             Price: <span className="font-bold">${gameDetails?.price}</span>
           </p>
+          <button
+            onClick={() =>
+              dispatch(
+                cartActions.addItemToCart({
+                  id: gameDetails.id,
+                  name: gameDetails.name,
+                  price: gameDetails.price,
+                  thumbnail: gameDetails.thumbnail,
+                })
+              )
+            }
+            className="px-6 py-2 border-solid border-2 border-whites rounded-2xl hover:bg-white hover:text-blue-600 transition-all duration-150"
+          >
+            Add to cart
+          </button>
         </div>
       </div>
       <div className="mt-8">

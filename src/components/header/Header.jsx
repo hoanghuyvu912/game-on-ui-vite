@@ -1,11 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Header.module.css";
+import { useSelector } from "react-redux";
 
 export default function Header() {
   const navigate = useNavigate();
 
   const [active, setActive] = useState(null);
+
+  const cartQuantity = useSelector((state) => state.cart.totalQuantity);
 
   const navItemArr = [
     { id: 1, name: "Home", path: "/" },
@@ -123,11 +126,18 @@ export default function Header() {
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto justify-between">
           <div className="text-sm lg:flex-grow">{renderNavItem}</div>
           {/* {renderNavItem} */}
-          <div className="group font-bold text-xl mr-2 relative border-2 border-solid border-white px-12 py-2 rounded-2xl hover:bg-white hover:text-blue-500 transition-all duration-150 cursor-pointer">
+          <div
+            onClick={() => {
+              navigate("/cart");
+            }}
+            className="group font-bold text-xl mr-2 relative border-2 border-solid border-white px-12 py-2 rounded-2xl hover:bg-white hover:text-blue-500 transition-all duration-150 cursor-pointer"
+          >
             Cart
-            <div className="absolute text-base right-[-15px] top-[-15px] rounded-full bg-white text-blue-900 w-8 h-8 justify-center items-center flex border-solid border-2 group-hover:bg-blue-700 group-hover:text-white transition:all duration-150">
-              5
-            </div>
+            {cartQuantity > 0 && (
+              <div className="absolute text-base right-[-15px] top-[-15px] rounded-full bg-white text-blue-900 w-8 h-8 justify-center items-center flex border-solid border-2 group-hover:bg-blue-700 group-hover:text-white transition:all duration-150">
+                {cartQuantity}
+              </div>
+            )}
           </div>
         </div>
       </nav>

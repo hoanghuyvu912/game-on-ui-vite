@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./GameStore.module.css";
 import { fetchAllGamesApi } from "src/services/game";
-import { deleteCommentByIdApi } from "src/services/comment";
 
 export default function GameStore() {
   const [allGamesList, setAllGamesList] = useState([]);
