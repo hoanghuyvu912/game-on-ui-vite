@@ -12,7 +12,7 @@ request.interceptors.request.use((config) => {
   if (userInfo) {
     userInfo = JSON.parse(userInfo);
 
-    config.headers.Authorization = `${userInfo.token}`;
+    config.headers.Authorization = `Bearer ${userInfo.token}`;
 
     config.headers["Roles"] = userInfo.roles;
   }
@@ -25,8 +25,6 @@ request.interceptors.response.use(
     return response;
   },
   (error) => {
-    <Alert>
-      <p>{error.response.data.content}</p>
-    </Alert>;
+    <Alert>{error.response.data.msg}</Alert>;
   }
 );

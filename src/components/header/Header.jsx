@@ -130,7 +130,7 @@ export default function Header() {
             onClick={() => {
               navigate("/cart");
             }}
-            className="group font-bold text-xl mr-2 relative border-2 border-solid border-white px-12 py-2 rounded-2xl hover:bg-white hover:text-blue-500 transition-all duration-150 cursor-pointer"
+            className="group font-bold text-xl mr-2 relative border-2 border-solid border-white px-12 py-2 rounded-2xl hover:bg-white hover:text-blue-700 transition-all duration-150 cursor-pointer"
           >
             Cart
             {cartQuantity > 0 && (

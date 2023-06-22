@@ -3,11 +3,15 @@ import useInput from "src/hook/use-input";
 import { useNavigate } from "react-router-dom";
 import classes from "./SignIn.module.css";
 import { USER_INFO_KEY } from "src/constants/common";
+import { useDispatch } from "react-redux";
+import { authActions } from "src/store/auth-slice";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
 export default function SignIn() {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const {
     value: usernameValue,
@@ -58,9 +62,11 @@ export default function SignIn() {
       }
 
       const userInfo = await response.json();
-      console.log(userInfo.token);
+      console.log(userInfo);
 
       localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
+
+      dispatch(authActions.login(userInfo.id));
 
       resetUsername();
       resetPassword();
