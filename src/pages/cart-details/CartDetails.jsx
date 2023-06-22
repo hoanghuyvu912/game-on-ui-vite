@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IconTrashFilled } from "@tabler/icons-react";
 import { cartActions } from "src/store/cart-slice";
 import { checkout } from "src/services/receipt";
+import { Spinner } from "flowbite-react";
 
 export default function CartDetails() {
   const listOfGamesInCart = useSelector((state) => state.cart.items);
@@ -49,6 +50,11 @@ export default function CartDetails() {
 
   return (
     <Fragment>
+      <Spinner
+        aria-label="Default status example"
+        className="fill-blue-700 drop-shadow-2xl shadow-outline shadow-2xl w-96 h-96"
+        size="xl"
+      />
       <h1 className="font-bold text-4xl text-white my-6">Your cart details:</h1>
       <div className="w-4/6">
         <ul className="text-xl">{renderGamesInCart}</ul>

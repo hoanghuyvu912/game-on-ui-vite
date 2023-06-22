@@ -2,6 +2,7 @@ import axios from "axios";
 import { Alert } from "flowbite-react";
 import { USER_INFO_KEY } from "src/constants/common";
 
+
 export const request = axios.create({
   baseURL: "http://localhost:8080/api",
 });
@@ -25,6 +26,6 @@ request.interceptors.response.use(
     return response;
   },
   (error) => {
-    <Alert>{error.response.data.msg}</Alert>;
+
   }
 );
