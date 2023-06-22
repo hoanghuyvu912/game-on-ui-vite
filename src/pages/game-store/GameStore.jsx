@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./GameStore.module.css";
 import { fetchAllGamesApi } from "src/services/game";
+import { deleteCommentByIdApi } from "src/services/comment";
 
 export default function GameStore() {
   const [allGamesList, setAllGamesList] = useState([]);
@@ -21,6 +22,7 @@ export default function GameStore() {
 
   const fetchAllGameList = useCallback(async () => {
     const result = await fetchAllGamesApi();
+    console.log(result);
 
     setAllGamesList(result.data);
   }, []);
@@ -36,7 +38,7 @@ export default function GameStore() {
         onClick={() => {
           navigate(`/game/${game.id}`);
         }}
-        className={`${classes.card} h-96 bg-white mb-8 mr-8 rounded-2xl overflow-hidden text-black  cursor-pointer`}
+        className={`${classes.card} h-96 bg-white mb-8 mr-8 rounded-2xl overflow-hidden text-black cursor-pointer`}
       >
         <img
           src={game.thumbnail}

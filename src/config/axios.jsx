@@ -3,7 +3,7 @@ import { Alert } from "flowbite-react";
 import { USER_INFO_KEY } from "src/constants/common";
 
 export const request = axios.create({
-  baseURL: "http://localhost:8080/api/",
+  baseURL: "http://localhost:8080/api",
 });
 
 request.interceptors.request.use((config) => {
@@ -12,7 +12,9 @@ request.interceptors.request.use((config) => {
   if (userInfo) {
     userInfo = JSON.parse(userInfo);
 
-    config.headers.Authorization = `Bearer ${userInfo.token}`;
+    config.headers.Authorization = `${userInfo.token}`;
+
+    config.headers["Roles"] = userInfo.roles;
   }
 
   return config;

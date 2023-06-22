@@ -120,8 +120,15 @@ export default function Header() {
             </svg>
           </button>
         </div>
-        <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto justify-between">
           <div className="text-sm lg:flex-grow">{renderNavItem}</div>
+          {/* {renderNavItem} */}
+          <div className=" font-bold text-xl mr-2 relative border-2 border-solid border-white px-[100px] py-[300px] rounded-2xl hover:bg-white hover:text-blue-500 transition-all duration-150 cursor-pointer">
+            Cart
+            <div className="absolute text-xs right-[-10px] top-[-15px] rounded-full bg-white text-blue-900 p-1 w-14 h-14 justify-center m-auto flex">
+              5
+            </div>
+          </div>
         </div>
       </nav>
     </Fragment>

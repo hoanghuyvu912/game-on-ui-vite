@@ -49,8 +49,10 @@ export default function NavBar(props) {
         </button>
       </div>
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">{renderNavItem}</div>
+        {/* <div className="text-sm lg:flex-grow">{renderNavItem}</div> */}
+        {renderNavItem}
       </div>
+      <div className="bg-red-500 w-96 h-96">Cart</div>
     </nav>
   );
 }
