@@ -64,6 +64,7 @@ export default function SignIn() {
 
       resetUsername();
       resetPassword();
+
     } catch (error) {
       alert(error.message);
     }

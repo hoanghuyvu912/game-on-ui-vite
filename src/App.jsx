@@ -8,6 +8,8 @@ import Game from "./pages/game-detail/Game";
 import SignUp from "./pages/sign-up/SignUp";
 import SignIn from "./pages/sign-in/SignIn";
 import CartDetails from "./pages/cart-details/CartDetails";
+import Admin from "./pages/admin/Admin";
+import Developer from "./pages/developer/Developers";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,7 +21,14 @@ function App() {
         { path: "/store", element: <GameStore /> },
         { path: "/library", element: <GameLibrary /> },
         { path: "/game/:gameId", element: <Game /> },
-        { path: "/cart", element: <CartDetails /> },
+        { path: "/cart", element: <CartDetails /> }
+      ],
+    },
+    {
+      path: "/admin",
+      element: <Admin />,
+      children: [
+        { path: "/admin", element: <Developer /> }
       ],
     },
     {
