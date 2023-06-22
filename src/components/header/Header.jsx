@@ -123,9 +123,9 @@ export default function Header() {
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto justify-between">
           <div className="text-sm lg:flex-grow">{renderNavItem}</div>
           {/* {renderNavItem} */}
-          <div className=" font-bold text-xl mr-2 relative border-2 border-solid border-white px-[100px] py-[300px] rounded-2xl hover:bg-white hover:text-blue-500 transition-all duration-150 cursor-pointer">
+          <div className="group font-bold text-xl mr-2 relative border-2 border-solid border-white px-12 py-2 rounded-2xl hover:bg-white hover:text-blue-500 transition-all duration-150 cursor-pointer">
             Cart
-            <div className="absolute text-xs right-[-10px] top-[-15px] rounded-full bg-white text-blue-900 p-1 w-14 h-14 justify-center m-auto flex">
+            <div className="absolute text-base right-[-15px] top-[-15px] rounded-full bg-white text-blue-900 w-8 h-8 justify-center items-center flex border-solid border-2 group-hover:bg-blue-700 group-hover:text-white transition:all duration-150">
               5
             </div>
           </div>
