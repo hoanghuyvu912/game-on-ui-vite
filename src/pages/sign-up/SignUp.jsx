@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useInput from "src/hook/use-input";
 import { useNavigate } from "react-router-dom";
 import classes from "./SignUp.module.css";
+import { signUp } from "src/services/auth";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.includes("@");
@@ -120,19 +121,8 @@ export default function SignUp() {
     console.log(submitSignUpData);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/signup", {
-        method: "POST",
-        body: JSON.stringify(submitSignUpData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      console.log("Submitted!");
+      const response = await signUp(submitSignUpData);
+      console.log(response);
 
       resetFirstName();
       resetLastName();
@@ -143,8 +133,40 @@ export default function SignUp() {
       resetEmail();
       resetDob();
     } catch (error) {
-      alert(error.message);
+      console.log(error.response.data.msg);
     }
+
+    // try {
+    //   const response = await fetch("http://localhost:8080/api/auth/signup", {
+    //     method: "POST",
+    //     body: JSON.stringify(submitSignUpData),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+
+    //   console.log(response);
+
+    //   const data = response.json();
+    //   console.log(data);
+
+    //   if (!response.ok) {
+    //     throw new Error("Something went wrong");
+    //   }
+
+    //   console.log("Submitted!");
+
+    //   resetFirstName();
+    //   resetLastName();
+    //   resetUsername();
+    //   resetPassword();
+    //   resetTel();
+    //   setAddressInput("");
+    //   resetEmail();
+    //   resetDob();
+    // } catch (error) {
+    //   alert(error.message);
+    // }
   };
 
   const firstNameClasses = firstNameHasError

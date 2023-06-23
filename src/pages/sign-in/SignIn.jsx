@@ -5,6 +5,7 @@ import classes from "./SignIn.module.css";
 import { USER_INFO_KEY } from "src/constants/common";
 import { useDispatch } from "react-redux";
 import { authActions } from "src/store/auth-slice";
+import { signIn } from "src/services/auth";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
