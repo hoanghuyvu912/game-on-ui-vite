@@ -20,11 +20,16 @@ export default function CartDetails() {
     };
 
     console.log(cartDetails);
-    try {
-      const response = await checkout(cartDetails);
-    } catch (error) {
-      console.log(error.response.data.msg);
-    }
+    // try {
+    //   const response = await checkout(cartDetails);
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error.response.data.msg);
+
+    // }
+    const response = await checkout(cartDetails);
+    console.log(response);
+    dispatch(cartActions.clearCart());
   }, []);
 
   const renderGamesInCart = listOfGamesInCart.map((game) => {
