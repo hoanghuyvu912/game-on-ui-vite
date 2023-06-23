@@ -5,7 +5,7 @@ import Header from "src/components/header/Header";
 
 export default function Root() {
   return (
-    <Fragment>
+    <Fragment >
       <Header />
       <Outlet />
       <Footer />

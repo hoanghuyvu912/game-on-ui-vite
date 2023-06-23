@@ -8,8 +8,10 @@ import Game from "./pages/game-detail/Game";
 import SignUp from "./pages/sign-up/SignUp";
 import SignIn from "./pages/sign-in/SignIn";
 import CartDetails from "./pages/cart-details/CartDetails";
-import Admin from "./pages/admin/Admin";
+import Admin from "./pages/admin-page/Admin";
 import Developer from "./pages/developer/Developers";
+import Receipt from "./pages/receipt/Receipt";
+import ReceiptDetail from "./pages/receipt-detail/ReceiptDetail";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,7 +30,9 @@ function App() {
       path: "/admin",
       element: <Admin />,
       children: [
-        { path: "/admin", element: <Developer /> }
+        { path: "/admin/developer", element: <Developer /> },
+        { path: "/admin/receipt", element: <Receipt /> },
+        { path: "/admin/receipt/:receiptId", element: <ReceiptDetail /> }
       ],
     },
     {
