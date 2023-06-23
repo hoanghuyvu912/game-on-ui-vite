@@ -1,10 +1,12 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { fetchAllReceiptsApi } from "src/services/receipt";
 import { Table } from "flowbite-react";
-import { Button } from "flowbite-react";
 import ReceiptDetail from "../receipt-detail/ReceiptDetail";
+import { useNavigate } from "react-router-dom";
 
 export default function Receipt() {
+  const navigate = useNavigate();
+
   const [receipts, setReceipt] = useState([]);
 
   const fetchReceiptList = useCallback(async () => {
@@ -22,11 +24,13 @@ export default function Receipt() {
     return (
       <>
         <Table.Body className="divide-y" key={receipt.id}>
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" onClick={() => {
+              navigate(`/admin/receipt/${receipt.id}`);
+            }}>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              <button onClick={() => {ReceiptDetail}}>{receipt.id}</button>
+              {receipt.id}
             </Table.Cell>
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" >
               {receipt.userId}
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">

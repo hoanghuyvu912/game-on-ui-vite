@@ -1,26 +1,20 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
-import { fetchAllReceiptsApi } from "src/services/receipt";
 import { Table } from "flowbite-react";
 import { Button } from "flowbite-react";
+import { useParams } from "react-router-dom";
+import { fetchAllReceiptDetailsApi } from "src/services/receiptdetail";
 
 export default function ReceiptDetail() {
-    const dispatch = useDispatch();
   
     const [receiptDetails, setReceiptDetails] = useState([]);
   
     const params = useParams();
+
   
     const fetchReceiptDetails = useCallback(async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/api/receipt-details/${params.receiptId}`
-        );
-        if (!response.ok) {
-          throw new Error("Something went wrong!");
-        }
-        const data = await response.json();
-        setReceiptDetails(data);
-      } catch (error) {}
+
+      const result = await fetchAllReceiptDetailsApi(params.receiptId);
+      setReceiptDetails(result.data);
     }, []);
   
     useEffect(() => {
@@ -30,10 +24,19 @@ export default function ReceiptDetail() {
     const renderAllReceiptDetail = receiptDetails.map((rd) => {
         return (
           <>
-            <Table.Body className="divide-y" key={receipt.id}>
+            <Table.Body className="divide-y" key={rd.id}>
               <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                   {rd.receiptId}
+                </Table.Cell>
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  {rd.receiptDetailsId}
+                </Table.Cell>
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  {rd.gameName}
+                </Table.Cell>
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  {rd.gamePrice}
                 </Table.Cell>
               </Table.Row>
             </Table.Body>
@@ -43,9 +46,12 @@ export default function ReceiptDetail() {
     
       return (
         <>
-          <Table striped hoverable>
+          <Table striped hoverable >
             <Table.Head>
-              <Table.HeadCell>Id</Table.HeadCell>
+              <Table.HeadCell>Receipt Id</Table.HeadCell>
+              <Table.HeadCell>Receipt Detail Id</Table.HeadCell>
+              <Table.HeadCell>Game</Table.HeadCell>
+              <Table.HeadCell>Price</Table.HeadCell>
             </Table.Head>
             {renderAllReceiptDetail}
           </Table>
