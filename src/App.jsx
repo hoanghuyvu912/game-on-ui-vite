@@ -12,7 +12,8 @@ import Admin from "./pages/admin-page/Admin";
 import Developer from "./pages/developer/Developers";
 import Receipt from "./pages/receipt/Receipt";
 import ReceiptDetail from "./pages/receipt-detail/ReceiptDetail";
-
+import User from "./pages/user-info/User";
+import UserDetail from "./pages/user-info/UserDetail";
 function App() {
   const router = createBrowserRouter([
     {
@@ -32,7 +33,9 @@ function App() {
       children: [
         { path: "/admin/developer", element: <Developer /> },
         { path: "/admin/receipt", element: <Receipt /> },
-        { path: "/admin/receipt/:receiptId", element: <ReceiptDetail /> }
+        { path: "/admin/receipt/:receiptId", element: <ReceiptDetail /> },
+        { path: "/admin/user", element: <User /> },
+        { path: "/admin/user/:userId", element: <UserDetail /> }
       ],
     },
     {
