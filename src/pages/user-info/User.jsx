@@ -33,7 +33,17 @@ export default function Users() {
                             {user.username}
                         </Table.Cell>
                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                            {user.active ? 'Active' : 'Inactive'}
+                            {user.active ? (
+                                <>
+                                    <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
+                                    Active
+                                </>
+                            ) : (
+                                <>
+                                    <div className="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>
+                                    Inactive
+                                </>
+                            )}
                         </Table.Cell>
                     </Table.Row>
                 </Table.Body>
@@ -43,7 +53,7 @@ export default function Users() {
 
     return (
         <>
-            <Table striped hoverable >
+            <Table striped >
                 <Table.Head>
                     <Table.HeadCell>User Id</Table.HeadCell>
                     <Table.HeadCell>User Name</Table.HeadCell>

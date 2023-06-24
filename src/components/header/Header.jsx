@@ -90,6 +90,7 @@ export default function Header() {
           </a>
         </div> */}
           <div>
+
             <div
               onClick={() => {
                 navigate("/sign-in");
@@ -106,6 +107,7 @@ export default function Header() {
             >
               Sign up
             </div>
+            
           </div>
         </div>
       </nav>
@@ -124,6 +126,7 @@ export default function Header() {
           </button>
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto justify-between">
+          
           <div className="text-sm lg:flex-grow">{renderNavItem}</div>
           {/* {renderNavItem} */}
           <div
@@ -137,6 +140,7 @@ export default function Header() {
               <div className="absolute text-base right-[-15px] top-[-15px] rounded-full bg-white text-blue-900 w-8 h-8 justify-center items-center flex border-solid border-2 group-hover:bg-blue-700 group-hover:text-white transition:all duration-150">
                 {cartQuantity}
               </div>
+            
             )}
           </div>
         </div>
