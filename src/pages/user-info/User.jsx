@@ -25,7 +25,7 @@ export default function Users() {
                 <Table.Body className="divide-y" key={index + 1} onClick={() => {
                     navigate(`/admin/user/${user.id}`)
                 }}>
-                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                    <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-400">
                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                             {user.id}
                         </Table.Cell>

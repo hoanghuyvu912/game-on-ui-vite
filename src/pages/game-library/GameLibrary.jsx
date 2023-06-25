@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import { fetchGameLibraryApi } from "src/services/game";
-
+import { Table } from "flowbite-react";
+'use client';
 export default function GameLibrary() {
   const [gameLibrary, setGameLibrary] = useState([]);
 
@@ -18,15 +18,40 @@ export default function GameLibrary() {
     fetchGameLibrary();
   }, [fetchGameLibrary]);
 
-  const renderGameLibrary = gameLibrary.map((game,index) => {
+  const renderGameLibrary = gameLibrary.map((game, index) => {
     return (
-      <div key={index+1}>
-        <h1>Game Name: {game.gameName}</h1>
-        <p>Game price: {game.gamePrice}</p>
-        <p>Date: {game.receiptDate}</p>
-      </div>
+      <Table.Row >
+        <Table.Cell className="whitespace-nowrap font-medium ">
+          {game.gameName}
+        </Table.Cell>
+        <Table.Cell>
+          {game.gamePrice}
+        </Table.Cell>
+        <Table.Cell>
+          {game.receiptDate}
+        </Table.Cell>
+      </Table.Row>
     );
   });
 
-  return <div>{renderGameLibrary}</div>;
+  return (
+    <>
+        <Table hoverable >
+          <Table.Head>
+            <Table.HeadCell>
+              Game
+            </Table.HeadCell>
+            <Table.HeadCell>
+              Price
+            </Table.HeadCell>
+            <Table.HeadCell>
+              Date
+            </Table.HeadCell>
+          </Table.Head>
+          <Table.Body className="divide-y">
+            {renderGameLibrary}
+          </Table.Body>
+        </Table>
+    </>
+  )
 }

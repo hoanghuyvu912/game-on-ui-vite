@@ -39,9 +39,9 @@ export default function AdminSidebar() {
   });
 
   return (
-    <Sidebar  aria-label="Default sidebar example">
+    <Sidebar  aria-label="Default sidebar example" >
       <Sidebar.Items>
-        <Sidebar.ItemGroup>{renderSideBarItem}</Sidebar.ItemGroup>
+        <Sidebar.ItemGroup >{renderSideBarItem}</Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
   );

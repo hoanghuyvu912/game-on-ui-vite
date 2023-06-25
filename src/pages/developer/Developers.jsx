@@ -19,10 +19,10 @@ export default function Developer() {
   const renderAllDeveloper = developers.map((developer) => {
     return (
       <>
-        <Table.Body className="divide-y" key={developer.id}>
+        <Table.Body className="divide-y " key={developer.id}>
           <Table.Row
             key={developer.id}
-            className="bg-white dark:border-gray-700 dark:bg-gray-800"
+            className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-400"
           >
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
               {developer.id}
@@ -44,7 +44,7 @@ export default function Developer() {
 
   return (
     <>
-      <Table striped>
+      <Table striped className="bg-gray-700" >
         <Table.Head>
           <Table.HeadCell>Id</Table.HeadCell>
           <Table.HeadCell>Developer Name</Table.HeadCell>

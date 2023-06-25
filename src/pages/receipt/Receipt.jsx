@@ -24,7 +24,7 @@ export default function Receipt() {
     return (
       <>
         <Table.Body className="divide-y" key={receipt.id}>
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" onClick={() => {
+          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-400"  onClick={() => {
               navigate(`/admin/receipt/${receipt.id}`);
             }}>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">

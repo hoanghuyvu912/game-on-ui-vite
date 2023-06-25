@@ -5,9 +5,8 @@ import Header from "src/components/header/Header";
 
 export default function Admin() {
   return (<>
-    <Header />
-    <div className="flex w-full">
-
+    <Header /> 
+    <div className="flex">
       <Sidebar />
       <div className="w-full">
         <Outlet />
