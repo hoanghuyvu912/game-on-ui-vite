@@ -14,7 +14,9 @@ export default function GameStore() {
   //     if (!response.ok) {
   //       throw new Error("Something went wrong!");
   //     }
+  //     console.log(response);
   //     const data = await response.json();
+  //     console.log(data);
   //     setAllGamesList(data);
   //   } catch (error) {}
   // }, []);

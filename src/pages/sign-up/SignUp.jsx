@@ -12,6 +12,8 @@ export default function SignUp() {
 
   const [genderInput, setGenderInput] = useState("Male");
 
+  const [axiosResponse, setAxiosReponse] = useState();
+
   const handleGenderChange = (event) => {
     setGenderInput(event.target.value);
   };
@@ -124,6 +126,8 @@ export default function SignUp() {
       const response = await signUp(submitSignUpData);
       console.log(response);
 
+      setAxiosReponse(response.data);
+
       resetFirstName();
       resetLastName();
       resetUsername();
@@ -136,37 +140,37 @@ export default function SignUp() {
       console.log(error.response.data.msg);
     }
 
-    // try {
-    //   const response = await fetch("http://localhost:8080/api/auth/signup", {
-    //     method: "POST",
-    //     body: JSON.stringify(submitSignUpData),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(submitSignUpData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    //   console.log(response);
+      console.log(response);
 
-    //   const data = response.json();
-    //   console.log(data);
+      const data = response.json();
+      console.log(data);
 
-    //   if (!response.ok) {
-    //     throw new Error("Something went wrong");
-    //   }
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
 
-    //   console.log("Submitted!");
+      console.log("Submitted!");
 
-    //   resetFirstName();
-    //   resetLastName();
-    //   resetUsername();
-    //   resetPassword();
-    //   resetTel();
-    //   setAddressInput("");
-    //   resetEmail();
-    //   resetDob();
-    // } catch (error) {
-    //   alert(error.message);
-    // }
+      resetFirstName();
+      resetLastName();
+      resetUsername();
+      resetPassword();
+      resetTel();
+      setAddressInput("");
+      resetEmail();
+      resetDob();
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const firstNameClasses = firstNameHasError
@@ -355,6 +359,9 @@ export default function SignUp() {
           Back to home
         </p>
       </div>
+      {axiosResponse && (
+        <h1 className="font-bold text-white font-5xl">{axiosResponse}</h1>
+      )}
     </div>
   );
 }
