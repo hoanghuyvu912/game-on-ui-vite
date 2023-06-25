@@ -7,3 +7,10 @@ export const loginApi = (data) => {
     data,
   });
 };
+
+export const getAdminPage = () => {
+  return request({
+    url: `admins-page`,
+    method: "GET",
+  });
+};

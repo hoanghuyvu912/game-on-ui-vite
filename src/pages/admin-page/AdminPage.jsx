@@ -1,10 +1,15 @@
-// import React, { Fragment } from "react";
+import React, { useCallback, useEffect } from "react";
+import { getAdminPage } from "src/services/user";
 
-// export default function AdminPage() {
-//   return (
-//     <Fragment>
-//       <Sidebar />
-//       <Outlet />
-//     </Fragment>
-//   );
-// }
+export default function AdminPage() {
+  const fetchAdminPage = useCallback(async () => {
+    const result = await getAdminPage();
+    console.log(result);
+  }, []);
+
+  useEffect(() => {
+    fetchAdminPage();
+  }, [fetchAdminPage]);
+
+  return <div>AdminPage</div>;
+}
