@@ -10,7 +10,6 @@ export default function Root() {
       <Header />
       <Outlet />
       <Footer />
-      <UserForm />
     </Fragment>
   );
 }

@@ -7,6 +7,13 @@ export const fetchAllGamesApi = () => {
   });
 };
 
+export const fetchFeaturedGamesApi = () => {
+  return request({
+    url: `/games/featured`,
+    method: "GET",
+  });
+};
+
 export const fetchGameDetailsApi = (id) => {
   return request({
     url: `/games/${id}`,
