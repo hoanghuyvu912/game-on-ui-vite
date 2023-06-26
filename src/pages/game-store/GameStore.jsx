@@ -1,36 +1,45 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./GameStore.module.css";
+import { fetchAllGamesApi } from "src/services/game";
 
 export default function GameStore() {
   const [allGamesList, setAllGamesList] = useState([]);
 
   const navigate = useNavigate();
 
+  // const fetchAllGameList = useCallback(async () => {
+  //   try {
+  //     const response = await fetch(`http://localhost:8080/api/games/`);
+  //     if (!response.ok) {
+  //       throw new Error("Something went wrong!");
+  //     }
+  //     console.log(response);
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setAllGamesList(data);
+  //   } catch (error) {}
+  // }, []);
+
   const fetchAllGameList = useCallback(async () => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/games/`);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-      const data = await response.json();
-      setAllGamesList(data);
-    } catch (error) {}
+    const result = await fetchAllGamesApi();
+    console.log(result);
+
+    setAllGamesList(result.data);
   }, []);
 
   useEffect(() => {
     fetchAllGameList();
   }, [fetchAllGameList]);
 
-  console.log(allGamesList);
-
   const renderAllGamesCard = allGamesList.map((game) => {
     return (
       <div
+        key={game.id}
         onClick={() => {
           navigate(`/game/${game.id}`);
         }}
-        className={`${classes.card} h-96 bg-white mb-8 mr-8 rounded-2xl overflow-hidden text-black  cursor-pointer`}
+        className={`${classes.card} h-96 bg-white mb-8 mr-8 rounded-2xl overflow-hidden text-black cursor-pointer`}
       >
         <img
           src={game.thumbnail}

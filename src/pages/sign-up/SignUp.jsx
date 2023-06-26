@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useInput from "src/hook/use-input";
 import { useNavigate } from "react-router-dom";
 import classes from "./SignUp.module.css";
+import { signUp } from "src/services/auth";
 
 const isNotEmpty = (value) => value.trim() !== "";
 const isEmail = (value) => value.includes("@");
@@ -10,6 +11,8 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const [genderInput, setGenderInput] = useState("Male");
+
+  const [axiosResponse, setAxiosReponse] = useState();
 
   const handleGenderChange = (event) => {
     setGenderInput(event.target.value);
@@ -120,6 +123,24 @@ export default function SignUp() {
     console.log(submitSignUpData);
 
     try {
+      const response = await signUp(submitSignUpData);
+      console.log(response);
+
+      setAxiosReponse(response.data);
+
+      resetFirstName();
+      resetLastName();
+      resetUsername();
+      resetPassword();
+      resetTel();
+      setAddressInput("");
+      resetEmail();
+      resetDob();
+    } catch (error) {
+      console.log(error.response.data.msg);
+    }
+
+    try {
       const response = await fetch("http://localhost:8080/api/auth/signup", {
         method: "POST",
         body: JSON.stringify(submitSignUpData),
@@ -127,6 +148,11 @@ export default function SignUp() {
           "Content-Type": "application/json",
         },
       });
+
+      console.log(response);
+
+      const data = response.json();
+      console.log(data);
 
       if (!response.ok) {
         throw new Error("Something went wrong");
@@ -167,7 +193,7 @@ export default function SignUp() {
       <div className="w-3/4 mx-auto py-3 leading-8">
         <form onSubmit={submitHandler}>
           <div className="control-group">
-            <div className={firstNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="firstName">First Name</label>
               <input
                 type="text"
@@ -175,7 +201,7 @@ export default function SignUp() {
                 value={firstNameValue}
                 onChange={firstNameChangeHandler}
                 onBlur={firstNameBlurHandler}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
               {firstNameHasError && (
                 <p className="text-red-500 font-bold">
@@ -184,7 +210,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="lastName">Last Name</label>
               <input
                 type="text"
@@ -199,7 +225,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
@@ -214,7 +240,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -229,7 +255,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="tel">Telephone number (optional)</label>
               <input
                 type="text"
@@ -246,7 +272,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="address">Address (optional)</label>
               <input
                 type="text"
@@ -257,7 +283,7 @@ export default function SignUp() {
               />
             </div>
 
-            <div className={emailClasses}>
+            <div className="flex flex-col">
               <label htmlFor="email">E-Mail Address</label>
               <input
                 type="text"
@@ -333,6 +359,9 @@ export default function SignUp() {
           Back to home
         </p>
       </div>
+      {axiosResponse && (
+        <h1 className="font-bold text-white font-5xl">{axiosResponse}</h1>
+      )}
     </div>
   );
 }

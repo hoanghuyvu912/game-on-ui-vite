@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import useInput from "src/hook/use-input";
 import { useNavigate } from "react-router-dom";
 import classes from "./SignIn.module.css";
+import { USER_INFO_KEY } from "src/constants/common";
+import { useDispatch } from "react-redux";
+import { authActions } from "src/store/auth-slice";
+import { signIn } from "src/services/auth";
 
 const isNotEmpty = (value) => value.trim() !== "";
 
 export default function SignIn() {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const {
     value: usernameValue,
@@ -45,22 +51,21 @@ export default function SignIn() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/signin", {
-        method: "POST",
-        body: JSON.stringify(submitSignInData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      const userInfo = await response.json();
+      const response = await signIn(submitSignInData);
+      console.log(response);
+      const userInfo = response.data;
       console.log(userInfo);
 
-      resetUsername();
-      resetPassword();
+      if (response.status === 200) {
+        localStorage.setItem(USER_INFO_KEY, JSON.stringify(userInfo));
+
+        dispatch(authActions.login(userInfo));
+
+        resetUsername();
+        resetPassword();
+
+        navigate("/");
+      }
     } catch (error) {
       alert(error.message);
     }
@@ -77,51 +82,54 @@ export default function SignIn() {
       </div>
       <div className="w-3/4 mx-auto py-3 leading-8">
         <form onSubmit={submitHandler}>
-          <div className="control-group">
-            <div className="form-control">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                value={usernameValue}
-                onChange={usernameChangeHandler}
-                onBlur={usernameBlurHandler}
-                className="pl-3 text-black"
-              />
-              {usernameHasError && (
-                <p className="error-text">Please enter a username.</p>
-              )}
-            </div>
-
-            <div className="form-control">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={passwordValue}
-                onChange={passwordChangeHandler}
-                onBlur={passwordBlurHandler}
-                className="pl-3 text-black"
-              />
-              {passwordHasError && (
-                <p className="error-text">Please enter a password.</p>
-              )}
-            </div>
+          <div className="flex items-center">
+            <label htmlFor="username" className="w-1/4">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              value={usernameValue}
+              onChange={usernameChangeHandler}
+              onBlur={usernameBlurHandler}
+              className="pl-3 text-black w-3/4 rounded my-1"
+            />
           </div>
 
-          <div className="form-actions my-2">
+          {usernameHasError && (
+            <div className="text-red-500">Please enter a username.</div>
+          )}
+          <div className="flex items-center">
+            <label htmlFor="password" className="w-1/4">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={passwordValue}
+              onChange={passwordChangeHandler}
+              onBlur={passwordBlurHandler}
+              className="pl-3 text-black w-3/4 rounded my-1 "
+            />
+          </div>
+
+          {passwordHasError && (
+            <div className="text-red-500">Please enter a password.</div>
+          )}
+
+          <div className=" my-2 grid grid-cols-6">
             <button
-              className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 duration-500 cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-300 disabled:hover:bg-gray-400 disabled:hover:border-white"
+              className="px-4 py-2 leading-none border rounded text-white font-bold text-xl border-white hover:border-transparent hover:text-blue-700 hover:bg-white mt-4 lg:mt-0 duration-500 cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-300 disabled:hover:bg-gray-400 disabled:hover:border-white col-start-3 col-end-5"
               disabled={!formIsValid}
             >
               Sign in
             </button>
           </div>
         </form>
-        <p>
+        <p className="my-2">
           Not a member yet?{" "}
           <span
-            className="cursor-pointer hover:text-teal-700 transition-all duration-300 font-bold"
+            className="cursor-pointer hover:text-blue-700 hover:bg-white p-2 rounded transition-all duration-300 font-bold"
             onClick={() => {
               navigate("/sign-up");
             }}
@@ -133,7 +141,7 @@ export default function SignIn() {
           onClick={() => {
             navigate("/");
           }}
-          className="cursor-pointer hover:text-teal-700 transition-all duration-300 font-bold inline-block"
+          className="cursor-pointer hover:text-blue-700 hover:bg-white p-2 rounded transition-all duration-300 font-bold inline-block"
         >
           Back to home
         </p>
