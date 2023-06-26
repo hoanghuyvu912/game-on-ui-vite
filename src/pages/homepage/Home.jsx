@@ -1,12 +1,11 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
-import { Carousel } from "flowbite-react";
+import { Carousel } from 'flowbite-react';
 import { useNavigate } from "react-router-dom";
 import {
   fetchFeaturedGamesApi,
   fetchRecentBestSellerGamesApi,
   fetchRecentWorstSellerGamesApi,
 } from "src/services/game";
-import Slider from "react-slick";
 
 export default function Home() {
   const [featuredGames, setFeaturedGames] = useState([]);
@@ -40,7 +39,6 @@ export default function Home() {
   const fetchFeaturedGamesList = useCallback(async () => {
     try {
       const response = await fetchFeaturedGamesApi();
-      console.log(response);
       setFeaturedGames(response.data);
     } catch (error) {}
   }, []);
@@ -48,7 +46,6 @@ export default function Home() {
   const fetchRecentBestSellerGamesList = useCallback(async () => {
     try {
       const response = await fetchRecentBestSellerGamesApi();
-      console.log(response);
       setBestSellerGames(response.data);
     } catch (error) {}
   }, []);
@@ -56,7 +53,6 @@ export default function Home() {
   const fetchRecentWorstSellerGamesList = useCallback(async () => {
     try {
       const response = await fetchRecentWorstSellerGamesApi();
-      console.log(response);
       setWorstSellerGames(response.data);
     } catch (error) {}
   }, []);

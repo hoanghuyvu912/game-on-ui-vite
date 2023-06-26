@@ -193,7 +193,7 @@ export default function SignUp() {
       <div className="w-3/4 mx-auto py-3 leading-8">
         <form onSubmit={submitHandler}>
           <div className="control-group">
-            <div className={firstNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="firstName">First Name</label>
               <input
                 type="text"
@@ -201,7 +201,7 @@ export default function SignUp() {
                 value={firstNameValue}
                 onChange={firstNameChangeHandler}
                 onBlur={firstNameBlurHandler}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
               {firstNameHasError && (
                 <p className="text-red-500 font-bold">
@@ -210,7 +210,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="lastName">Last Name</label>
               <input
                 type="text"
@@ -225,7 +225,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="username">Username</label>
               <input
                 type="text"
@@ -240,7 +240,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -255,7 +255,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="tel">Telephone number (optional)</label>
               <input
                 type="text"
@@ -272,7 +272,7 @@ export default function SignUp() {
               )}
             </div>
 
-            <div className={lastNameClasses}>
+            <div className="flex flex-col">
               <label htmlFor="address">Address (optional)</label>
               <input
                 type="text"
@@ -283,7 +283,7 @@ export default function SignUp() {
               />
             </div>
 
-            <div className={emailClasses}>
+            <div className="flex flex-col">
               <label htmlFor="email">E-Mail Address</label>
               <input
                 type="text"

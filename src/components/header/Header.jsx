@@ -10,6 +10,7 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const userInfo = useSelector((state) => state.authentication.userInfo);
+  console.log(userInfo);
 
   const [active, setActive] = useState(null);
 

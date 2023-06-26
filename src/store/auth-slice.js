@@ -9,7 +9,7 @@ if (userInfo) {
 
 const initialAuthState = {
   isAuthenticated: false,
-  userInfo: userInfo.id,
+  userInfo: userInfo
 };
 
 const authSlice = createSlice({
