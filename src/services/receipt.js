@@ -1,4 +1,5 @@
 import { request } from "src/config/axios";
+<<<<<<< HEAD
 
 export const checkout = (data) => {
   return request({
@@ -7,3 +8,15 @@ export const checkout = (data) => {
     data,
   });
 };
+=======
+import { USER_INFO_KEY } from "src/constants/common";
+
+export const fetchAllReceiptsApi = () => {
+  const userInfo = localStorage.getItem(USER_INFO_KEY);
+
+  return request({
+    url: "/receipts",
+    method: "GET",
+  });
+};
+>>>>>>> feature/game-library

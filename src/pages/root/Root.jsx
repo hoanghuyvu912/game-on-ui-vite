@@ -6,7 +6,7 @@ import UserForm from "../form/UserForm";
 
 export default function Root() {
   return (
-    <Fragment>
+    <Fragment >
       <Header />
       <Outlet />
       <Footer />

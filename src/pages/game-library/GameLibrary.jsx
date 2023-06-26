@@ -1,18 +1,38 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react'
 
 export default function GameLibrary() {
-  const isLoggedIn = useSelector(
-    (state) => state.authentication.isAuthenticated
-  );
+  const [gameLibrary, setGameLibrary] = useState([]);
 
-  const loggedInUserId = useSelector((state) => state.authentication.userId);
-  console.log(loggedInUserId);
+  const fetchGameLibrary = useCallback(async () => {
+    const result = await fetchGameLibraryApi();
+    console.log(result);
+
+    setGameLibrary(result.data);
+  }, []);
+
+  console.log(gameLibrary);
+
+  useEffect(() => {
+    fetchGameLibrary();
+  }, [fetchGameLibrary]);
+
+  const renderGameLibrary = gameLibrary.map((game, index) => {
+    return (
+      <Table.Row >
+        <Table.Cell className="whitespace-nowrap font-medium ">
+          {game.gameName}
+        </Table.Cell>
+        <Table.Cell>
+          {game.gamePrice}
+        </Table.Cell>
+        <Table.Cell>
+          {game.receiptDate}
+        </Table.Cell>
+      </Table.Row>
+    );
+  });
 
   return (
-    <div>
-      Game Library
-      {isLoggedIn && <p>Logged in !</p>}
-    </div>
-  );
+    <div>Game Library</div>
+  )
 }
