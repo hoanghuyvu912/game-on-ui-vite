@@ -20,3 +20,17 @@ export const fetchGameDetailsApi = (id) => {
     method: "GET",
   });
 };
+
+export const fetchRecentBestSellerGamesApi = () => {
+  return request({
+    url: `/games/recent-best-seller`,
+    method: "GET",
+  });
+};
+
+export const fetchRecentWorstSellerGamesApi = () => {
+  return request({
+    url: `/games/recent-worst-seller`,
+    method: "GET",
+  });
+};

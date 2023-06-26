@@ -83,66 +83,61 @@ export default function Game() {
     ) / gameDetails?.simplifiedRatingDtoList.length;
 
   return (
-    <section className="my-6">
-      <div className="grid grid-cols-2 gap-24 justify-between flex-wrap">
-        <div className="h-[450px]">
-          {/* <img
-            src={gameDetails?.thumbnail}
-            alt=""
-            className="object-fill h-full w-full rounded-3xl"
-          /> */}
-          <iframe
-            className="w-full h-full m-auto rounded-3xl my-0"
-            src={gameDetails?.trailer}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
+      <section className="my-6">
+        <div className="grid grid-cols-2 gap-24 justify-between flex-wrap">
+          <div className="h-[450px]">
+            <iframe
+              className="w-full h-full m-auto rounded-3xl my-0"
+              src={gameDetails?.trailer}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </div>
+          <div className=" h-fit leading-10">
+            <h1 className="font-bold text-6xl">{gameDetails?.name}</h1>
+            <p className=" italic">
+              Released date: <span>{gameDetails?.releasedDate}</span>
+            </p>
+            <p>
+              <span className=" font-bold">Genre:</span>{" "}
+              {genreString + ", " + subGenreString}
+            </p>
+            <Rating>
+              <p className="font-bold dark:text-gray-400 mr-1">Rating:</p>
+              <Rating.Star />
+              <p className="ml-1 font-bold dark:text-gray-400">{avgRating}</p>
+            </Rating>
+            <p className="font-bold">{gameDetails?.description}</p>
+            <p className="font-bold underline">System requirement:</p>
+            {renderGameSystemReq}
+            <p>
+              Price: <span className="font-bold">${gameDetails?.price}</span>
+            </p>
+            <button
+              onClick={() =>
+                dispatch(
+                  cartActions.addItemToCart({
+                    id: gameDetails.id,
+                    name: gameDetails.name,
+                    price: gameDetails.price,
+                    thumbnail: gameDetails.thumbnail,
+                  })
+                )
+              }
+              className="px-6 py-2 border-solid border-2 border-whites text-2xl font-bold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-150"
+            >
+              Add to cart
+            </button>
+          </div>
         </div>
-        <div className=" h-fit leading-10">
-          <h1 className="font-bold text-6xl">{gameDetails?.name}</h1>
-          <p className=" italic">
-            Released date: <span>{gameDetails?.releasedDate}</span>
-          </p>
-          <p>
-            <span className=" font-bold">Genre:</span>{" "}
-            {genreString + ", " + subGenreString}
-          </p>
-          <Rating>
-            <p className="font-bold dark:text-gray-400 mr-1">Rating:</p>
-            <Rating.Star />
-            <p className="ml-1 font-bold dark:text-gray-400">{avgRating}</p>
-          </Rating>
-          <p className="font-bold">{gameDetails?.description}</p>
-          <p className="font-bold underline">System requirement:</p>
-          {renderGameSystemReq}
-          <p>
-            Price: <span className="font-bold">${gameDetails?.price}</span>
-          </p>
-          <button
-            onClick={() =>
-              dispatch(
-                cartActions.addItemToCart({
-                  id: gameDetails.id,
-                  name: gameDetails.name,
-                  price: gameDetails.price,
-                  thumbnail: gameDetails.thumbnail,
-                })
-              )
-            }
-            className="px-6 py-2 border-solid border-2 border-whites text-2xl font-bold rounded-xl hover:bg-white hover:text-blue-600 transition-all duration-150"
-          >
-            Add to cart
-          </button>
+        <Carousel className="h-[900px] my-8" slideInterval={4000}>
+          {renderGameImages}
+        </Carousel>
+        <div className="mt-8">
+          <h1 className="font-bolder text-5xl">Comments: </h1>
+          <ul>{renderGameComment}</ul>
         </div>
-      </div>
-      <Carousel className="h-[900px] my-8" slideInterval={4000}>
-        {renderGameImages}
-      </Carousel>
-      <div className="mt-8">
-        <h1 className="font-bolder text-5xl">Comments: </h1>
-        <ul>{renderGameComment}</ul>
-      </div>
-    </section>
+      </section>
   );
 }

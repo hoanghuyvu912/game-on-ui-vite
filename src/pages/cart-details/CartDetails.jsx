@@ -4,32 +4,34 @@ import { IconTrashFilled } from "@tabler/icons-react";
 import { cartActions } from "src/store/cart-slice";
 import { checkout } from "src/services/receipt";
 import { Spinner } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 export default function CartDetails() {
+  const navigate = useNavigate();
   const listOfGamesInCart = useSelector((state) => state.cart.items);
   let totalPrice = useSelector((state) => state.cart.totalPrice).toFixed(2);
-  const userId = useSelector((state) => state.authentication.userId);
+  const userInfo = useSelector((state) => state.authentication.userInfo);
   const dispatch = useDispatch();
 
   console.log(listOfGamesInCart);
 
   const handleCheckout = useCallback(async () => {
     const cartDetails = {
-      userId,
+      userId: userInfo.id,
       gameIdList: listOfGamesInCart.map((game) => game.id),
     };
 
     console.log(cartDetails);
-    // try {
-    //   const response = await checkout(cartDetails);
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(error.response.data.msg);
 
-    // }
-    const response = await checkout(cartDetails);
-    console.log(response);
-    dispatch(cartActions.clearCart());
+    try {
+      const response = await checkout(cartDetails);
+      console.log(response);
+
+      if (response.status === 200) {
+        dispatch(cartActions.clearCart());
+        navigate("/store");
+      }
+    } catch (error) {}
   }, []);
 
   const renderGamesInCart = listOfGamesInCart.map((game) => {
