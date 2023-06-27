@@ -1,4 +1,3 @@
-// import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Root from "./pages/root/Root";
 import Home from "./pages/homepage/Home";
@@ -8,12 +7,18 @@ import Game from "./pages/game-detail/Game";
 import SignUp from "./pages/sign-up/SignUp";
 import SignIn from "./pages/sign-in/SignIn";
 import CartDetails from "./pages/cart-details/CartDetails";
-import Admin from "./pages/admin-page/Admin";
-import Developer from "./pages/developer/Developers";
+import Admin from "./pages/admin-page/AdminPage";
+import Developer from "./pages/developers/Developers";
 import Receipt from "./pages/receipt/Receipt";
 import ReceiptDetail from "./pages/receipt-detail/ReceiptDetail";
 import User from "./pages/user-info/User";
 import UserDetail from "./pages/user-info/UserDetail";
+import AuthGuard from "./guards/auth.guard";
+import NoAuthGuard from "./guards/no-auth.guard";
+import AdminGuard from "./guards/admin.guard";
+import Developers from "./pages/developers/Developers";
+import Publishers from "./pages/publisher/Publishers";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -22,33 +27,51 @@ function App() {
       children: [
         { path: "/", element: <Home /> },
         { path: "/store", element: <GameStore /> },
-        { path: "/library", element: <GameLibrary /> },
         { path: "/game/:gameId", element: <Game /> },
-        { path: "/cart", element: <CartDetails /> }
+        {
+          path: "/",
+          element: <AuthGuard />,
+          children: [
+            { path: "/library", element: <GameLibrary /> },
+            { path: "/cart", element: <CartDetails /> },
+          ],
+        },
       ],
     },
     {
       path: "/admin",
       element: <Admin />,
       children: [
-        { path: "/admin/developer", element: <Developer /> },
-        { path: "/admin/receipt", element: <Receipt /> },
-        { path: "/admin/receipt/:receiptId", element: <ReceiptDetail /> },
-        { path: "/admin/user", element: <User /> },
-        { path: "/admin/user/:userId", element: <UserDetail /> }
+        {
+          path: "/admin/",
+          element: <AdminGuard />,
+          children: [
+            { path: "/admin/developers-management", element: <Developers /> },
+            { path: "/admin/publishers-management", element: <Publishers /> },
+            { path: "/admin/receipts-management", element: <Receipt /> },
+            {
+              path: "/admin/receipts-management/:receiptId",
+              element: <ReceiptDetail />,
+            },
+            { path: "/admin/users-management", element: <User /> },
+            { path: "/admin/users-management/:userId", element: <UserDetail /> },
+          ],
+        },
       ],
     },
     {
-      path: "/admin-page",
-      element: <AdminPage />,
-    },
-    {
-      path: "/sign-up",
-      element: <SignUp />,
-    },
-    {
-      path: "/sign-in",
-      element: <SignIn />,
+      path: "/",
+      element: <NoAuthGuard />,
+      children: [
+        {
+          path: "/sign-up",
+          element: <SignUp />,
+        },
+        {
+          path: "/sign-in",
+          element: <SignIn />,
+        },
+      ],
     },
   ]);
 

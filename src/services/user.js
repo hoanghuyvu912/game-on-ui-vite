@@ -10,25 +10,22 @@ export const loginApi = (data) => {
 };
 
 export const fetchAllUsersApi = () => {
-  const userInfo = localStorage.getItem(USER_INFO_KEY);
-
   return request({
     url: "/users",
     method: "GET",
   });
 };
 
-export const fetchUserInforApi = (userId) => {
-  const userInfo = localStorage.getItem(USER_INFO_KEY);
-
+export const fetchUserInfoApi = (id) => {
   return request({
-    url: `/users/${userId}`,
+    url: `/users/${id}`,
     method: "GET",
   });
 };
-export const getAdminPage = () => {
+
+export const deleteUserByIdApi = (id) => {
   return request({
-    url: `admins-page`,
-    method: "GET",
+    url: `/users/${id}`,
+    method: "DELETE",
   });
 };

@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
-import { Carousel } from 'flowbite-react';
+import { Carousel } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import {
   fetchFeaturedGamesApi,
@@ -13,28 +13,6 @@ export default function Home() {
   const [worstSellerGames, setWorstSellerGames] = useState([]);
 
   const navigate = useNavigate();
-
-  // const fetchFeaturedGamesListHandler = useCallback(async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:8080/api/games/featured");
-  //     if (!response.ok) {
-  //       throw new Error("Something went wrong!");
-  //     }
-  //     const data = await response.json();
-
-  //     const transformedGames = data.map((gameData) => {
-  //       return {
-  //         id: gameData.id,
-  //         name: gameData.name,
-  //         description: gameData.description,
-  //         releaseDate: gameData.releaseDate,
-  //         price: gameData.price,
-  //         thumbnail: gameData.thumbnail,
-  //       };
-  //     });
-  //     setFeaturedGames(transformedGames);
-  //   } catch (error) {}
-  // }, []);
 
   const fetchFeaturedGamesList = useCallback(async () => {
     try {
@@ -68,17 +46,7 @@ export default function Home() {
   useEffect(() => {
     fetchRecentWorstSellerGamesList();
   }, [fetchRecentWorstSellerGamesList]);
-  // useEffect(() => {
-  //   fetchFeaturedGamesListHandler();
-  // }, [fetchFeaturedGamesListHandler]);
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-  };
-
+  
   const renderFeaturedGamesCarousel = featuredGames.map((game, index) => {
     return (
       <img
@@ -117,8 +85,12 @@ export default function Home() {
 
   return (
     <div className="mx-auto my-6 h-fit w-5/6">
-      <h1 className="text-5xl font-bold my-5 text-center h-1/10">Newly Released: </h1>
-      <Carousel className="xl:h-[650px]">{renderFeaturedGamesCarousel}</Carousel>
+      <h1 className="text-5xl font-bold my-5 text-center h-1/10">
+        Newly Released:{" "}
+      </h1>
+      <Carousel className="xl:h-[650px]">
+        {renderFeaturedGamesCarousel}
+      </Carousel>
       {/* <div className="w-full grid grid-cols-2 xl:h-[350px]">
         <Carousel>{renderBestSellerGamesCarousel}</Carousel>
         <Carousel>{renderWorstSellerGamesCarousel}</Carousel>
