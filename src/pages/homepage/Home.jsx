@@ -6,6 +6,7 @@ import {
   fetchRecentBestSellerGamesApi,
   fetchRecentWorstSellerGamesApi,
 } from "src/services/game";
+import "./Home.css";
 
 export default function Home() {
   const [featuredGames, setFeaturedGames] = useState([]);
@@ -46,7 +47,7 @@ export default function Home() {
   useEffect(() => {
     fetchRecentWorstSellerGamesList();
   }, [fetchRecentWorstSellerGamesList]);
-  
+
   const renderFeaturedGamesCarousel = featuredGames.map((game, index) => {
     return (
       <img
@@ -84,10 +85,14 @@ export default function Home() {
   });
 
   return (
-    <div className="mx-auto my-6 h-fit w-5/6">
-      <h1 className="text-5xl font-bold my-5 text-center h-1/10">
-        Newly Released:{" "}
-      </h1>
+    <div className="mx-auto my-6 h-fit w-5/6 flex flex-col items-center">
+      <div
+        // id="newly-released"
+        className={`text-5xl font-bold my-5 rounded-xl text-center h-1/10 newly-released w-fit px-7 py-3 relative flex justify-center items-center overflow-hidden bg-black`}
+      >
+        <span></span>
+        <h1>Newly Released:</h1>
+      </div>
       <Carousel className="xl:h-[650px]">
         {renderFeaturedGamesCarousel}
       </Carousel>
