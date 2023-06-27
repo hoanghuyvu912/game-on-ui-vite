@@ -1,0 +1,9 @@
+.cart-empty-text {
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+
+  background: url("../../assets/images/wallpaperflare.com_wallpaper.jpg");
+  background-size: 200%;
+}

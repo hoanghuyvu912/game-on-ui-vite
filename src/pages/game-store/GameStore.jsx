@@ -1,16 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./GameStore.module.css";
 import { fetchAllGamesApi } from "src/services/game";
-import { useAsync } from "src/hook/useAsync";
+import { LoadingContext } from "src/context/LoadingContext";
 
 export default function GameStore() {
   const navigate = useNavigate();
 
   const [allGamesList, setAllGamesList] = useState([]);
 
+  const [_, setLoadingState] = useContext(LoadingContext);
+
   const fetchAllGameList = useCallback(async () => {
+    setLoadingState({ isLoading: true });
+
     const result = await fetchAllGamesApi();
+
+    setLoadingState({ isLoading: false });
 
     setAllGamesList(result.data);
   }, []);
@@ -18,11 +24,6 @@ export default function GameStore() {
   useEffect(() => {
     fetchAllGameList();
   }, [fetchAllGameList]);
-
-  // const { state: allGamesList } = useAsync({
-  //   dependecies: [],
-  //   service: () => fetchAllGamesApi(),
-  // });
 
   console.log(allGamesList);
 

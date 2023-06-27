@@ -1,38 +1,31 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Carousel } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
-import {
-  fetchFeaturedGamesApi,
-  fetchRecentBestSellerGamesApi,
-  fetchRecentWorstSellerGamesApi,
-} from "src/services/game";
+import { fetchFeaturedGamesApi } from "src/services/game";
 import "./Home.css";
+import { LoadingContext } from "src/context/LoadingContext";
 
 export default function Home() {
-  const [featuredGames, setFeaturedGames] = useState([]);
-  const [bestSellerGames, setBestSellerGames] = useState([]);
-  const [worstSellerGames, setWorstSellerGames] = useState([]);
-
   const navigate = useNavigate();
+  const [_, setLoadingState] = useContext(LoadingContext);
+
+  const [featuredGames, setFeaturedGames] = useState([]);
 
   const fetchFeaturedGamesList = useCallback(async () => {
     try {
+      setLoadingState({ isLoading: true });
+
       const response = await fetchFeaturedGamesApi();
+
+      setLoadingState({ isLoading: false });
+
       setFeaturedGames(response.data);
-    } catch (error) {}
-  }, []);
-
-  const fetchRecentBestSellerGamesList = useCallback(async () => {
-    try {
-      const response = await fetchRecentBestSellerGamesApi();
-      setBestSellerGames(response.data);
-    } catch (error) {}
-  }, []);
-
-  const fetchRecentWorstSellerGamesList = useCallback(async () => {
-    try {
-      const response = await fetchRecentWorstSellerGamesApi();
-      setWorstSellerGames(response.data);
     } catch (error) {}
   }, []);
 
@@ -40,13 +33,7 @@ export default function Home() {
     fetchFeaturedGamesList();
   }, [fetchFeaturedGamesList]);
 
-  useEffect(() => {
-    fetchRecentBestSellerGamesList();
-  }, [fetchRecentBestSellerGamesList]);
-
-  useEffect(() => {
-    fetchRecentWorstSellerGamesList();
-  }, [fetchRecentWorstSellerGamesList]);
+  console.log(featuredGames);
 
   const renderFeaturedGamesCarousel = featuredGames.map((game, index) => {
     return (
@@ -60,29 +47,29 @@ export default function Home() {
     );
   });
 
-  const renderBestSellerGamesCarousel = bestSellerGames.map((item, index) => {
-    return (
-      <img
-        key={item.simplifiedGameDto.id}
-        alt="..."
-        src={item.simplifiedGameDto.thumbnail}
-        className="w-full mx-auto rounded-2xl h-full object-cover"
-        onClick={() => navigate(`/game/${game.id}`)}
-      />
-    );
-  });
+  // const renderBestSellerGamesCarousel = bestSellerGames.map((item, index) => {
+  //   return (
+  //     <img
+  //       key={item.simplifiedGameDto.id}
+  //       alt="..."
+  //       src={item.simplifiedGameDto.thumbnail}
+  //       className="w-full mx-auto rounded-2xl h-full object-cover"
+  //       onClick={() => navigate(`/game/${game.id}`)}
+  //     />
+  //   );
+  // });
 
-  const renderWorstSellerGamesCarousel = worstSellerGames.map((item, index) => {
-    return (
-      <img
-        key={item.simplifiedGameDto.id}
-        alt="..."
-        src={item.simplifiedGameDto.thumbnail}
-        className="w-full mx-auto rounded-2xl h-full object-cover"
-        onClick={() => navigate(`/game/${game.id}`)}
-      />
-    );
-  });
+  // const renderWorstSellerGamesCarousel = worstSellerGames.map((item, index) => {
+  //   return (
+  //     <img
+  //       key={item.simplifiedGameDto.id}
+  //       alt="..."
+  //       src={item.simplifiedGameDto.thumbnail}
+  //       className="w-full mx-auto rounded-2xl h-full object-cover"
+  //       onClick={() => navigate(`/game/${game.id}`)}
+  //     />
+  //   );
+  // });
 
   return (
     <div className="mx-auto my-6 h-fit w-5/6 flex flex-col items-center">
