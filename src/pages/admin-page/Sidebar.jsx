@@ -5,22 +5,37 @@ import {
   HiHome,
   HiUserGroup,
   HiOutlineDocumentDuplicate,
-  HiUser
+  HiUser,
 } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminSidebar() {
   const [active, setActive] = useState(null);
 
-  
-
   const navigate = useNavigate();
 
   const sideBarItem = [
-    { id: 1, name: "Home", path: "/admin", icon: HiHome },
-    { id: 2, name: "Developer", path: "/admin/developer", icon: HiUserGroup },
-    { id: 3, name: "Receipt", path: "/admin/receipt", icon: HiOutlineDocumentDuplicate },
-    { id: 4, name: "User", path: "/admin/user", icon: HiUser },
+    { id: 1, name: "Back to homepage", path: "/", icon: HiHome },
+    {
+      id: 2,
+      name: "Developers",
+      path: "/admin/developers-management",
+      icon: HiUserGroup,
+    },
+
+    {
+      id: 3,
+      name: "Publishers",
+      path: "/admin/publishers-management",
+      icon: HiUserGroup,
+    },
+    {
+      id: 4,
+      name: "Receipts",
+      path: "/admin/receipts-management",
+      icon: HiOutlineDocumentDuplicate,
+    },
+    { id: 5, name: "Users", path: "/admin/users-management", icon: HiUser },
   ];
 
   const renderSideBarItem = sideBarItem.map((item) => {
@@ -39,9 +54,9 @@ export default function AdminSidebar() {
   });
 
   return (
-    <Sidebar  aria-label="Default sidebar example" >
+    <Sidebar aria-label="Default sidebar example">
       <Sidebar.Items>
-        <Sidebar.ItemGroup >{renderSideBarItem}</Sidebar.ItemGroup>
+        <Sidebar.ItemGroup>{renderSideBarItem}</Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
   );

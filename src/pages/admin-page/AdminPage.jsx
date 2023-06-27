@@ -1,15 +1,19 @@
-import React, { useCallback, useEffect } from "react";
-import { getAdminPage } from "src/services/user";
+import Sidebar from "./Sidebar";
+import React, { Fragment } from "react";
+import { Outlet } from "react-router-dom";
+import AdminHeader from "src/components/admin-header/AdminHeader";
+import Header from "src/components/header/Header";
 
-export default function AdminPage() {
-  const fetchAdminPage = useCallback(async () => {
-    const result = await getAdminPage();
-    console.log(result);
-  }, []);
-
-  useEffect(() => {
-    fetchAdminPage();
-  }, [fetchAdminPage]);
-
-  return <div>AdminPage</div>;
+export default function Admin() {
+  return (
+    <>
+      <AdminHeader />
+      <div className="flex">
+        <Sidebar />
+        <div className="ml-5 mb-5 w-full">
+          <Outlet />
+        </div>
+      </div>
+    </>
+  );
 }

@@ -9,7 +9,7 @@ export default function AuthGuard() {
 
   useEffect(() => {
     if (!userInfo) {
-      navigate("/login");
+      navigate("/sign-in");
     }
   }, []);
 
