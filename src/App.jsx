@@ -18,7 +18,7 @@ import NoAuthGuard from "./guards/no-auth.guard";
 import AdminGuard from "./guards/admin.guard";
 import Developers from "./pages/developers/Developers";
 import Publishers from "./pages/publisher/Publishers";
-
+import UserInfo from "./pages/user-info/UserInfo";
 function App() {
   const router = createBrowserRouter([
     {
@@ -28,6 +28,7 @@ function App() {
         { path: "/", element: <Home /> },
         { path: "/store", element: <GameStore /> },
         { path: "/game/:gameId", element: <Game /> },
+        { path: "/user/user-info", element: <UserInfo /> },
         {
           path: "/",
           element: <AuthGuard />,

@@ -29,3 +29,10 @@ export const deleteUserByIdApi = (id) => {
     method: "DELETE",
   });
 };
+
+export const fetchAccountInfoApi = (id) => {
+  return request({
+    url: `/users/user-info`,
+    method: "GET",
+  });
+};
