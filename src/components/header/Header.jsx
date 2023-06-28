@@ -58,7 +58,10 @@ export default function Header() {
               Admin page
             </div>
           )}
-          <div className="p-3 hover:bg-gray-700 hover:rounded hover:text-white transition-all duration-150 cursor-pointer">
+          <div
+            onClick={() => navigate("/account-info")}
+            className="p-3 hover:bg-gray-700 hover:rounded hover:text-white transition-all duration-150 cursor-pointer"
+          >
             Account info
           </div>
           <div

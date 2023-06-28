@@ -33,8 +33,6 @@ export default function Home() {
     fetchFeaturedGamesList();
   }, [fetchFeaturedGamesList]);
 
-  console.log(featuredGames);
-
   const renderFeaturedGamesCarousel = featuredGames.map((game, index) => {
     return (
       <img

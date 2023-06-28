@@ -13,9 +13,11 @@ export default function Users() {
     setUsers(result.data);
   }, []);
 
+  console.log(users);
+
   useEffect(() => {
     fetchUsers();
-  }, [users, fetchUsers]);
+  }, [fetchUsers]);
 
   const handeDeleteUserById = async (id) => {
     await deleteUserByIdApi(id);

@@ -17,13 +17,10 @@ import NoAuthGuard from "./guards/no-auth.guard";
 import AdminGuard from "./guards/admin.guard";
 import Developers from "./pages/developers/Developers";
 import Publishers from "./pages/publisher/Publishers";
-<<<<<<< HEAD
-import UserInfo from "./pages/user-info/UserInfo";
-=======
 import { Suspense } from "react";
 import { LoadingProvider } from "./context/LoadingContext";
+import AccountInfo from "./pages/user-info/AccountInfo";
 
->>>>>>> main
 function App() {
   const router = createBrowserRouter([
     {
@@ -33,7 +30,7 @@ function App() {
         { path: "/", element: <Home /> },
         { path: "/store", element: <GameStore /> },
         { path: "/game/:gameId", element: <Game /> },
-        { path: "/user/user-info", element: <UserInfo /> },
+        { path: "/account-info", element: <AccountInfo /> },
         {
           path: "/",
           element: <AuthGuard />,

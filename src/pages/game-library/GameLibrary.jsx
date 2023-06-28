@@ -20,28 +20,25 @@ export default function GameLibrary() {
   console.log(gameLibrary);
 
   useEffect(() => {
-    if (!userInfo) {
-      navigate("/");
-    }
-  }, [userInfo]);
-
-  useEffect(() => {
     fetchGameLibrary();
   }, [fetchGameLibrary]);
 
   const renderGameLibrary = gameLibrary.map((game, index) => {
     return (
-      <div className="flex h-40 my-7 rounded-3xl bg-gray-500 px-4 py-3 text-black">
+      <div className="flex h-fit my-7 rounded-3xl bg-gray-500 px-4 py-3 text-black">
         <img
           src={game.thumbnail}
           className=" object-cover w-1/5 rounded-3xl mr-3"
           alt=""
         />
         <div className=" w-4/5">
-          <h1 className="text-blue-700 font-bold text-3xl">{game.name}</h1>
-          <p className="">Purchased date: {game.receiptDate}</p>
+          <h1 className="text-blue-300 font-bold text-3xl">{game.name}</h1>
+          <p className="text-white font-bold">
+            Purchased date: {game.receiptDate}
+          </p>
+          <p className="text-white">Code: {game.gameCode}</p>
           <button
-            className="mt-5 py-3 px-6 text-white bg-blue-700 rounded-2xl hover:bg-blue-500"
+            className="py-3 px-6 text-white bg-blue-700 rounded-2xl hover:bg-blue-500 transition-all duration-150"
             onClick={() =>
               alert(
                 "You're playing the game. Such wow. Much fun. Very immersion."

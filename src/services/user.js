@@ -30,9 +30,17 @@ export const deleteUserByIdApi = (id) => {
   });
 };
 
-export const fetchAccountInfoApi = (id) => {
+export const fetchAccountInfoApi = () => {
   return request({
-    url: `/users/user-info`,
+    url: `users/account-info`,
     method: "GET",
+  });
+};
+
+export const depositAmountIntoAccount = (data) => {
+  return request({
+    url: `users/deposit?amount=${data}`,
+    method: "POST",
+    data,
   });
 };

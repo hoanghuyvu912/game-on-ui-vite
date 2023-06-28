@@ -12,8 +12,6 @@ export default function SignUp() {
 
   const [genderInput, setGenderInput] = useState("Male");
 
-  const [axiosResponse, setAxiosReponse] = useState();
-
   const handleGenderChange = (event) => {
     setGenderInput(event.target.value);
   };
@@ -120,66 +118,26 @@ export default function SignUp() {
       gender: genderInput,
     };
 
-    console.log(submitSignUpData);
-
     try {
       const response = await signUp(submitSignUpData);
       console.log(response);
 
-      setAxiosReponse(response.data);
+      if (response.status === 200) {
+        resetFirstName();
+        resetLastName();
+        resetUsername();
+        resetPassword();
+        resetTel();
+        setAddressInput("");
+        resetEmail();
+        resetDob();
 
-      resetFirstName();
-      resetLastName();
-      resetUsername();
-      resetPassword();
-      resetTel();
-      setAddressInput("");
-      resetEmail();
-      resetDob();
-    } catch (error) {
-      console.log(error.response.data.msg);
-    }
+        alert(response.data);
 
-    try {
-      const response = await fetch("http://localhost:8080/api/auth/signup", {
-        method: "POST",
-        body: JSON.stringify(submitSignUpData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      console.log(response);
-
-      const data = response.json();
-      console.log(data);
-
-      if (!response.ok) {
-        throw new Error("Something went wrong");
+        navigate("/sign-in");
       }
-
-      console.log("Submitted!");
-
-      resetFirstName();
-      resetLastName();
-      resetUsername();
-      resetPassword();
-      resetTel();
-      setAddressInput("");
-      resetEmail();
-      resetDob();
-    } catch (error) {
-      alert(error.message);
-    }
+    } catch (error) {}
   };
-
-  const firstNameClasses = firstNameHasError
-    ? "form-control invalid"
-    : "form-control";
-  const lastNameClasses = lastNameHasError
-    ? "form-control invalid"
-    : "form-control";
-  const emailClasses = emailHasError ? "form-control invalid" : "form-control";
 
   return (
     <div className="sm:w-3/4 md:w-4/5 lg:w-3/5 2xl:w-2/5 m-auto h-auto my-12 bg-transparent border-white border-4 rounded-2xl overflow-hidden">
@@ -218,7 +176,7 @@ export default function SignUp() {
                 value={lastNameValue}
                 onChange={lastNameChangeHandler}
                 onBlur={lastNameBlurHandler}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
               {lastNameHasError && (
                 <p className="error-text">Please enter a last name.</p>
@@ -233,7 +191,7 @@ export default function SignUp() {
                 value={usernameValue}
                 onChange={usernameChangeHandler}
                 onBlur={usernameBlurHandler}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
               {usernameHasError && (
                 <p className="error-text">Please enter a username.</p>
@@ -248,7 +206,7 @@ export default function SignUp() {
                 value={passwordValue}
                 onChange={passwordChangeHandler}
                 onBlur={passwordBlurHandler}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
               {passwordHasError && (
                 <p className="error-text">Please enter a password.</p>
@@ -263,7 +221,7 @@ export default function SignUp() {
                 value={telValue}
                 onChange={telChangeHandler}
                 onBlur={telBlurHandler}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
               {telHasError && (
                 <p className="error-text">
@@ -279,7 +237,7 @@ export default function SignUp() {
                 id="address"
                 value={addressInput}
                 onChange={handleAddressChange}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
             </div>
 
@@ -291,7 +249,7 @@ export default function SignUp() {
                 value={emailValue}
                 onChange={emailChangeHandler}
                 onBlur={emailBlurHandler}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
               {emailHasError && (
                 <p className="error-text">
@@ -311,7 +269,7 @@ export default function SignUp() {
                 value={dobValue}
                 onChange={dobChangeHandler}
                 onBlur={dobBlurHandler}
-                className="pl-3 text-black"
+                className="pl-3 text-black rounded"
               />
             </div>
 
@@ -322,7 +280,7 @@ export default function SignUp() {
                 id="gender"
                 value={genderInput}
                 onChange={handleGenderChange}
-                className="pl-3 py-1 text-black block"
+                className="pl-3 py-1 text-black rounded block"
               >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -332,7 +290,7 @@ export default function SignUp() {
 
           <div className="form-actions my-2">
             <button
-              className="text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0 duration-500 cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-300 disabled:hover:bg-gray-400 disabled:hover:border-white"
+              className="text-xl px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-blue-700 hover:bg-white mt-4 lg:mt-0 duration-500 cursor-pointer disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-300 disabled:hover:bg-gray-400 disabled:hover:border-white"
               disabled={!formIsValid}
             >
               Sign up
@@ -342,7 +300,7 @@ export default function SignUp() {
         <p>
           Already have an account?{" "}
           <span
-            className="cursor-pointer hover:text-teal-700 transition-all duration-300 font-bold"
+            className="cursor-pointer hover:text-blue-700 hover:bg-white p-2 rounded transition-all duration-300 font-bold"
             onClick={() => {
               navigate("/sign-in");
             }}
@@ -354,14 +312,11 @@ export default function SignUp() {
           onClick={() => {
             navigate("/");
           }}
-          className="cursor-pointer hover:text-teal-700 transition-all duration-300 font-bold inline-block"
+          className="cursor-pointer hover:text-blue-700 hover:bg-white p-2 rounded transition-all duration-300 font-bold w-fit"
         >
           Back to home
         </p>
       </div>
-      {axiosResponse && (
-        <h1 className="font-bold text-white font-5xl">{axiosResponse}</h1>
-      )}
     </div>
   );
 }
