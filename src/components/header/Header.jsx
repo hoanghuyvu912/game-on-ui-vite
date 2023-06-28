@@ -46,23 +46,19 @@ export default function Header() {
         <div
           className={`w-full absolute ${
             dropDownOpen ? "block" : "hidden"
-          } text-black bg-white rounded mt-1 text-[1rem] transition-all duration-75`}
+          } text-black bg-white rounded mt-1 text-[1rem] transition-all duration-75 z-20`}
         >
           {userInfo.roles.includes("ROLE_ADMIN") && (
             <div
               onClick={() => {
                 navigate("/admin");
               }}
-              className="p-3 hover:bg-gray-700 hover:rounded transition-all duration-150 cursor-pointer"
+              className="p-3 hover:bg-gray-700 hover:rounded hover:text-white transition-all duration-150 cursor-pointer"
             >
               Admin page
             </div>
           )}
-          <div className="p-3 hover:bg-gray-700 hover:rounded transition-all duration-150 cursor-pointer"
-          onClick={() =>{
-            navigate("/user/user-info")
-          }}
-          >
+          <div className="p-3 hover:bg-gray-700 hover:rounded hover:text-white transition-all duration-150 cursor-pointer">
             Account info
           </div>
           <div
@@ -121,7 +117,7 @@ export default function Header() {
     <Fragment>
       <nav
         id="header"
-        className="mx-auto md:flex items-center justify-between flex-wrap bg-transparent py-3"
+        className="mx-auto flex sm:flex-col sm:items-center md:flex-row md:justify-between bg-transparent py-3"
       >
         <div className="flex sm:flex-col items-center flex-shrink-0 text-white mr-6">
           <h1
@@ -139,17 +135,15 @@ export default function Header() {
           {renderAuthButtons}
         </div>
       </nav>
-      <nav className="mx-auto flex items-center justify-between flex-wrap bg-transparent py-4 border-t-2 border-b-2 border-solid border-gray-600 sm:p-0">
+      <nav className="mx-auto flex items-center justify-between flex-wrap bg-transparent py-1 border-t-2 border-b-2 border-solid border-gray-600">
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto justify-between">
-          <div className="text-sm lg:flex-grow mb-3">
-            {renderNavItem}
-          </div>
+          <div className="text-sm lg:flex-grow">{renderNavItem}</div>
           {userInfo && (
             <div
               onClick={() => {
                 navigate("/cart");
               }}
-              className="group font-bold text-xl mr-2 relative border-2 border-solid border-white px-12 py-2 rounded-2xl hover:bg-white hover:text-blue-500 transition-all duration-150 cursor-pointer sm:mb-3 w-32 ml-auto"
+              className="group font-bold text-xl mr-2 relative border-2 border-solid border-white px-12 py-2 rounded-2xl hover:bg-white hover:text-blue-500 transition-all duration-150 cursor-pointer ml-auto"
             >
               Cart
               {cartQuantity > 0 && (

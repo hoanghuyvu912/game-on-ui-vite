@@ -1,29 +1,22 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./GameStore.module.css";
 import { fetchAllGamesApi } from "src/services/game";
+import { LoadingContext } from "src/context/LoadingContext";
 
 export default function GameStore() {
-  const [allGamesList, setAllGamesList] = useState([]);
-
   const navigate = useNavigate();
 
-  // const fetchAllGameList = useCallback(async () => {
-  //   try {
-  //     const response = await fetch(`http://localhost:8080/api/games/`);
-  //     if (!response.ok) {
-  //       throw new Error("Something went wrong!");
-  //     }
-  //     console.log(response);
-  //     const data = await response.json();
-  //     console.log(data);
-  //     setAllGamesList(data);
-  //   } catch (error) {}
-  // }, []);
+  const [allGamesList, setAllGamesList] = useState([]);
+
+  const [_, setLoadingState] = useContext(LoadingContext);
 
   const fetchAllGameList = useCallback(async () => {
+    setLoadingState({ isLoading: true });
+
     const result = await fetchAllGamesApi();
-    console.log(result);
+
+    setLoadingState({ isLoading: false });
 
     setAllGamesList(result.data);
   }, []);
@@ -31,6 +24,8 @@ export default function GameStore() {
   useEffect(() => {
     fetchAllGameList();
   }, [fetchAllGameList]);
+
+  console.log(allGamesList);
 
   const renderAllGamesCard = allGamesList.map((game) => {
     return (

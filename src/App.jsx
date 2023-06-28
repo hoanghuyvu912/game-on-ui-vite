@@ -8,7 +8,6 @@ import SignUp from "./pages/sign-up/SignUp";
 import SignIn from "./pages/sign-in/SignIn";
 import CartDetails from "./pages/cart-details/CartDetails";
 import Admin from "./pages/admin-page/AdminPage";
-import Developer from "./pages/developers/Developers";
 import Receipt from "./pages/receipt/Receipt";
 import ReceiptDetail from "./pages/receipt-detail/ReceiptDetail";
 import User from "./pages/user-info/User";
@@ -18,7 +17,13 @@ import NoAuthGuard from "./guards/no-auth.guard";
 import AdminGuard from "./guards/admin.guard";
 import Developers from "./pages/developers/Developers";
 import Publishers from "./pages/publisher/Publishers";
+<<<<<<< HEAD
 import UserInfo from "./pages/user-info/UserInfo";
+=======
+import { Suspense } from "react";
+import { LoadingProvider } from "./context/LoadingContext";
+
+>>>>>>> main
 function App() {
   const router = createBrowserRouter([
     {
@@ -55,7 +60,10 @@ function App() {
               element: <ReceiptDetail />,
             },
             { path: "/admin/users-management", element: <User /> },
-            { path: "/admin/users-management/:userId", element: <UserDetail /> },
+            {
+              path: "/admin/users-management/:userId",
+              element: <UserDetail />,
+            },
           ],
         },
       ],
@@ -76,7 +84,13 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<></>}>
+      <LoadingProvider>
+        <RouterProvider router={router} />
+      </LoadingProvider>
+    </Suspense>
+  );
 }
 
 export default App;

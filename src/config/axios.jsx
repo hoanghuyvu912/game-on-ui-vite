@@ -25,6 +25,6 @@ request.interceptors.response.use(
     return response;
   },
   (error) => {
-    return error;
+    alert(error.response.data.msg);
   }
 );
